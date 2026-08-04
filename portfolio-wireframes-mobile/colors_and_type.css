@@ -1,0 +1,51 @@
+/* Wireframe Grayscale Design System */
+/* Low-fidelity wireframe: grayscale, no decoration, layout-first */
+
+:root {
+  /* Brand Primary */
+  --wf-50:  #fafafa;
+  --wf-100: #f5f5f5;
+  --wf-200: #e5e5e5;
+  --wf-300: #d4d4d4;
+  --wf-400: #a3a3a3;
+  --wf-500: #737373;
+  --wf-600: #525252;
+  --wf-700: #404040;
+  --wf-800: #262626;
+  --wf-900: #171717;
+  --wf-950: #0a0a0a;
+
+  /* Semantic Aliases */
+  --wf-background: #fafafa;
+  --wf-foreground: #262626;
+  --wf-card: #ffffff;
+  --wf-card-foreground: #262626;
+  --wf-popover: #ffffff;
+  --wf-popover-foreground: #262626;
+  --wf-primary: #404040;
+  --wf-primary-foreground: #fafafa;
+  --wf-muted: #f5f5f5;
+  --wf-muted-foreground: #737373;
+  --wf-border: #d4d4d4;
+  --wf-input: #d4d4d4;
+  --wf-ring: #a3a3a3;
+
+  /* Radius */
+  --wf-radius-small: 2px;
+  --wf-radius-medium: 4px;
+  --wf-radius-large: 8px;
+
+  /* Wireframe-specific */
+  --wf-wireframe-stroke: #999999;
+  --wf-wireframe-fill: #e8e8e8;
+  --wf-wireframe-label: #666666;
+  --wf-wireframe-dashed: #cccccc;
+}
+
+/* Typography */
+.wf-text-display { font-family: system-ui, -apple-system, sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+.wf-text-heading { font-family: system-ui, -apple-system, sans-serif; font-size: 1.25rem; font-weight: 600; }
+.wf-text-body { font-family: system-ui, -apple-system, sans-serif; font-size: 0.875rem; font-weight: 400; line-height: 1.6; }
+.wf-text-label { font-family: 'Courier New', monospace; font-size: 0.75rem; font-weight: 400; color: var(--wf-wireframe-label); text-transform: uppercase; letter-spacing: 0.05em; }
+.wf-text-metric { font-family: system-ui, -apple-system, sans-serif; font-size: 1.5rem; font-weight: 700; }
+.wf-text-small { font-family: system-ui, -apple-system, sans-serif; font-size: 0.75rem; }

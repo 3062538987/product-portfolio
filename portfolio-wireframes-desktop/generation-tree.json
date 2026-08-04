@@ -1,0 +1,36 @@
+{
+  "root": {
+    "nodeId": "gen-project-shell",
+    "kind": "project-shell",
+    "pageIds": ["page-full-wireframe", "page-project-expanded"],
+    "output": "partials/project-shell.html",
+    "sharedRegions": ["wireframe-base-styles", "canvas-container"],
+    "privateRegions": [],
+    "mutableSlots": ["pageContent"],
+    "status": "planned",
+    "children": [
+      {
+        "nodeId": "gen-full-wireframe",
+        "kind": "page-leaf",
+        "pageIds": ["page-full-wireframe"],
+        "output": "pages/full-wireframe.html",
+        "sharedRegions": [],
+        "privateRegions": ["hero", "projects", "about", "articles", "contact"],
+        "mutableSlots": [],
+        "status": "planned",
+        "children": []
+      },
+      {
+        "nodeId": "gen-project-expanded",
+        "kind": "page-leaf",
+        "pageIds": ["page-project-expanded"],
+        "output": "pages/project-expanded.html",
+        "sharedRegions": [],
+        "privateRegions": ["hero", "project-expanded-detail", "contact"],
+        "mutableSlots": [],
+        "status": "planned",
+        "children": []
+      }
+    ]
+  }
+}

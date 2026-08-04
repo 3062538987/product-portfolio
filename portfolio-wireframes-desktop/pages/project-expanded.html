@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目卡片展开态</title>
+    <style id="theme-vars">
+/* Wireframe Grayscale Design System */
+/* Low-fidelity wireframe: grayscale, no decoration, layout-first */
+
+:root {
+  /* Brand Primary */
+  --wf-50:  #fafafa;
+  --wf-100: #f5f5f5;
+  --wf-200: #e5e5e5;
+  --wf-300: #d4d4d4;
+  --wf-400: #a3a3a3;
+  --wf-500: #737373;
+  --wf-600: #525252;
+  --wf-700: #404040;
+  --wf-800: #262626;
+  --wf-900: #171717;
+  --wf-950: #0a0a0a;
+
+  /* Semantic Aliases */
+  --wf-background: #fafafa;
+  --wf-foreground: #262626;
+  --wf-card: #ffffff;
+  --wf-card-foreground: #262626;
+  --wf-popover: #ffffff;
+  --wf-popover-foreground: #262626;
+  --wf-primary: #404040;
+  --wf-primary-foreground: #fafafa;
+  --wf-muted: #f5f5f5;
+  --wf-muted-foreground: #737373;
+  --wf-border: #d4d4d4;
+  --wf-input: #d4d4d4;
+  --wf-ring: #a3a3a3;
+
+  /* Radius */
+  --wf-radius-small: 2px;
+  --wf-radius-medium: 4px;
+  --wf-radius-large: 8px;
+
+  /* Wireframe-specific */
+  --wf-wireframe-stroke: #999999;
+  --wf-wireframe-fill: #e8e8e8;
+  --wf-wireframe-label: #666666;
+  --wf-wireframe-dashed: #cccccc;
+}
+
+/* Typography */
+.wf-text-display { font-family: system-ui, -apple-system, sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+.wf-text-heading { font-family: system-ui, -apple-system, sans-serif; font-size: 1.25rem; font-weight: 600; }
+.wf-text-body { font-family: system-ui, -apple-system, sans-serif; font-size: 0.875rem; font-weight: 400; line-height: 1.6; }
+.wf-text-label { font-family: 'Courier New', monospace; font-size: 0.75rem; font-weight: 400; color: var(--wf-wireframe-label); text-transform: uppercase; letter-spacing: 0.05em; }
+.wf-text-metric { font-family: system-ui, -apple-system, sans-serif; font-size: 1.5rem; font-weight: 700; }
+.wf-text-small { font-family: system-ui, -apple-system, sans-serif; font-size: 0.75rem; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--wf-background);
+    --color-foreground: var(--wf-foreground);
+    --color-card: var(--wf-card);
+    --color-card-foreground: var(--wf-card-foreground);
+    --color-popover: var(--wf-popover);
+    --color-popover-foreground: var(--wf-popover-foreground);
+    --color-primary: var(--wf-primary);
+    --color-primary-foreground: var(--wf-primary-foreground);
+    --color-muted: var(--wf-muted);
+    --color-muted-foreground: var(--wf-muted-foreground);
+    --color-border: var(--wf-border);
+    --color-input: var(--wf-input);
+    --color-ring: var(--wf-ring);
+    --radius-sm: var(--wf-radius-small);
+    --radius-md: var(--wf-radius-medium);
+    --radius-lg: var(--wf-radius-large);
+  }
+  @layer base {
+    body { background: var(--wf-background); color: var(--wf-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--wf-background); }
+      .text-background { color: var(--wf-background); }
+      .border-background { border-color: var(--wf-background); }
+      .ring-background { --tw-ring-color: var(--wf-background); }
+      .bg-foreground { background-color: var(--wf-foreground); }
+      .text-foreground { color: var(--wf-foreground); }
+      .border-foreground { border-color: var(--wf-foreground); }
+      .ring-foreground { --tw-ring-color: var(--wf-foreground); }
+      .bg-card { background-color: var(--wf-card); }
+      .text-card { color: var(--wf-card); }
+      .border-card { border-color: var(--wf-card); }
+      .ring-card { --tw-ring-color: var(--wf-card); }
+      .bg-card-foreground { background-color: var(--wf-card-foreground); }
+      .text-card-foreground { color: var(--wf-card-foreground); }
+      .border-card-foreground { border-color: var(--wf-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--wf-card-foreground); }
+      .bg-popover { background-color: var(--wf-popover); }
+      .text-popover { color: var(--wf-popover); }
+      .border-popover { border-color: var(--wf-popover); }
+      .ring-popover { --tw-ring-color: var(--wf-popover); }
+      .bg-popover-foreground { background-color: var(--wf-popover-foreground); }
+      .text-popover-foreground { color: var(--wf-popover-foreground); }
+      .border-popover-foreground { border-color: var(--wf-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--wf-popover-foreground); }
+      .bg-primary { background-color: var(--wf-primary); }
+      .text-primary { color: var(--wf-primary); }
+      .border-primary { border-color: var(--wf-primary); }
+      .ring-primary { --tw-ring-color: var(--wf-primary); }
+      .bg-primary-foreground { background-color: var(--wf-primary-foreground); }
+      .text-primary-foreground { color: var(--wf-primary-foreground); }
+      .border-primary-foreground { border-color: var(--wf-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--wf-primary-foreground); }
+      .bg-muted { background-color: var(--wf-muted); }
+      .text-muted { color: var(--wf-muted); }
+      .border-muted { border-color: var(--wf-muted); }
+      .ring-muted { --tw-ring-color: var(--wf-muted); }
+      .bg-muted-foreground { background-color: var(--wf-muted-foreground); }
+      .text-muted-foreground { color: var(--wf-muted-foreground); }
+      .border-muted-foreground { border-color: var(--wf-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--wf-muted-foreground); }
+      .bg-border { background-color: var(--wf-border); }
+      .text-border { color: var(--wf-border); }
+      .border-border { border-color: var(--wf-border); }
+      .ring-border { --tw-ring-color: var(--wf-border); }
+      .bg-input { background-color: var(--wf-input); }
+      .text-input { color: var(--wf-input); }
+      .border-input { border-color: var(--wf-input); }
+      .ring-input { --tw-ring-color: var(--wf-input); }
+      .bg-ring { background-color: var(--wf-ring); }
+      .text-ring { color: var(--wf-ring); }
+      .border-ring { border-color: var(--wf-ring); }
+      .ring-ring { --tw-ring-color: var(--wf-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main class="pt-16">
+        <!-- ===== NAV BAR ===== -->
+        <nav class="fixed top-0 left-0 right-0 h-16 bg-white z-50 border-b border-dashed" style="border-color: var(--wf-wireframe-dashed);">
+            <div class="max-w-6xl mx-auto h-full flex items-center justify-between px-8">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 border border-dashed flex items-center justify-center" style="border-color: var(--wf-wireframe-stroke);">
+                        <span class="wf-text-label text-[10px]">LO</span>
+                    </div>
+                    <span class="wf-text-label">[姓名]</span>
+                </div>
+                <div class="flex items-center gap-8">
+                    <span class="wf-text-label" data-dom-id="nav-works">作品</span>
+                    <span class="wf-text-label" data-dom-id="nav-about">关于</span>
+                    <span class="wf-text-label" data-dom-id="nav-contact">联系</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ===== HERO SECTION (compact) ===== -->
+        <section class="border-b border-dashed py-12 px-8" style="border-color: var(--wf-wireframe-dashed);">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="wf-text-display" style="color: var(--wf-foreground);">[姓名]</h1>
+                <p class="wf-text-body mt-2" style="color: var(--wf-muted-foreground);">[B端产品经理]</p>
+            </div>
+        </section>
+
+        <!-- ===== EXPANDED PROJECT CARD ===== -->
+        <section class="max-w-4xl mx-auto px-8 py-10">
+            <!-- Card Header -->
+            <div class="border border-dashed p-6 mb-6 relative" style="border-color: var(--wf-wireframe-stroke); background-color: var(--wf-card);">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1 min-w-0">
+                        <h2 class="wf-text-heading truncate" style="color: var(--wf-foreground);">[项目名称]</h2>
+                        <p class="wf-text-body mt-1 truncate" style="color: var(--wf-muted-foreground);">[一句话概述]</p>
+                    </div>
+                    <span class="wf-text-label shrink-0 ml-4 cursor-pointer" data-dom-id="toggle-collapse">[收起 ▲]</span>
+                </div>
+            </div>
+
+            <!-- Three Key Metrics -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="border border-dashed p-4 text-center" style="border-color: var(--wf-wireframe-stroke); background-color: var(--wf-card);">
+                    <p class="wf-text-metric" style="color: var(--wf-foreground);">[+XX%]</p>
+                    <p class="wf-text-label mt-1">指标一</p>
+                </div>
+                <div class="border border-dashed p-4 text-center" style="border-color: var(--wf-wireframe-stroke); background-color: var(--wf-card);">
+                    <p class="wf-text-metric" style="color: var(--wf-foreground);">[+XX%]</p>
+                    <p class="wf-text-label mt-1">指标二</p>
+                </div>
+                <div class="border border-dashed p-4 text-center" style="border-color: var(--wf-wireframe-stroke); background-color: var(--wf-card);">
+                    <p class="wf-text-metric" style="color: var(--wf-foreground);">[+XX%]</p>
+                    <p class="wf-text-label mt-1">指标三</p>
+                </div>
+            </div>
+
+            <!-- Expanded Content: 背景与挑战 -->
+            <div class="border border-dashed p-6 mb-4" style="border-color: var(--wf-wireframe-stroke); background-color: var(--wf-card);">
+                <span class="wf-text-label">背景与挑战</span>
+                <p class="wf-text-body mt-3" style="color: var(--wf-muted-foreground);">[该项目要解决的业务问题描述占位，包括现状痛点和目标]</p>
+            </div>
+
+            <!-- Expanded Content: 我的角色 -->
+            <div class="border border-dashed p-6 mb-4" style="border-color: var(--wf-wireframe-stroke); background-color: var(--wf-card);">
+                <span class="wf-text-label">我的角色</span>
+                <p class="wf-text-body mt-3" style="color: var(--wf-muted-foreground);">[在项目中担任的角色和职责描述占位]</p>
+            </div>
+
+            <!-- Expanded Content: 方案与决策逻辑 -->
+            <div class="border border-dashed p-6 mb-4" style="border-color: var(--wf-wireframe-stroke); background-color: var(--wf-card);">
+                <span class="wf-text-label">方案与决策逻辑</span>
+                <div class="mt-3 space-y-2">
+                    <p class="wf-text-body" style="color: var(--wf-muted-foreground);">1. [关键决策过程和选择方案的理由占位，要点一]</p>
+                    <p class="wf-text-body" style="color: var(--wf-muted-foreground);">2. [关键决策过程和选择方案的理由占位，要点二]</p>
+                    <p class="wf-text-body" style="color: var(--wf-muted-foreground);">3. [关键决策过程和选择方案的理由占位，要点三]</p>
+                </div>
+            </div>
+
+            <!-- Expanded Content: Before/After 数据对比 -->
+            <div class="border border-dashed p-6 mb-4" style="border-color: var(--wf-wireframe-stroke); background-color: var(--wf-card);">
+                <span class="wf-text-label">Before/After 数据对比</span>
+                <div class="grid grid-cols-[1fr_auto_1fr] gap-4 mt-3 items-center">
+                    <div class="border border-dashed p-4 text-center" style="border-color: var(--wf-wireframe-dashed); background-color: var(--wf-wireframe-fill);">
+                        <span class="wf-text-label">Before</span>
+                        <p class="wf-text-body mt-2" style="color: var(--wf-muted-foreground);">[优化前数据]</p>
+                    </div>
+                    <span class="wf-text-metric" style="color: var(--wf-wireframe-stroke);">→</span>
+                    <div class="border border-dashed p-4 text-center" style="border-color: var(--wf-wireframe-dashed); background-color: var(--wf-wireframe-fill);">
+                        <span class="wf-text-label">After</span>
+                        <p class="wf-text-body mt-2" style="color: var(--wf-muted-foreground);">[优化后数据]</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expanded Content: 复盘与反思 -->
+            <div class="border border-dashed p-6 mb-4" style="border-color: var(--wf-wireframe-stroke); background-color: var(--wf-card);">
+                <span class="wf-text-label">复盘与反思</span>
+                <p class="wf-text-body mt-3" style="color: var(--wf-muted-foreground);">[项目复盘总结，学到的经验和改进方向占位]</p>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT + FOOTER ===== -->
+        <footer class="border-t border-dashed" style="border-color: var(--wf-wireframe-dashed);">
+            <div class="max-w-4xl mx-auto px-8 py-8">
+                <div class="flex flex-col md:flex-row md:justify-between gap-6">
+                    <div>
+                        <span class="wf-text-label">联系</span>
+                        <p class="wf-text-body mt-2" style="color: var(--wf-muted-foreground);">[邮箱地址占位]</p>
+                        <p class="wf-text-body mt-1" style="color: var(--wf-muted-foreground);">[微信占位]</p>
+                    </div>
+                    <div>
+                        <span class="wf-text-label">链接</span>
+                        <div class="flex gap-4 mt-2">
+                            <span class="wf-text-label">LinkedIn</span>
+                            <span class="wf-text-label">GitHub</span>
+                            <span class="wf-text-label">即刻</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-dashed" style="border-color: var(--wf-wireframe-dashed);">
+                    <span class="wf-text-label">© 2026 [姓名]</span>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
