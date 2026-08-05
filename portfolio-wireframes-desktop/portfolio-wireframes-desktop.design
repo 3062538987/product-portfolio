@@ -1,42 +1,5 @@
 {
-  "data": [
-    {
-      "id": "page-full-wireframe",
-      "title": "完整页面线框图",
-      "type": "page",
-      "version": 1,
-      "createdAt": 1755786900000,
-      "canvasData": {
-        "x": 0,
-        "y": 0,
-        "width": 1440,
-        "height": 4000,
-        "group": 0
-      },
-      "devMetadata": {
-        "htmlSrc": "pages/full-wireframe.html",
-        "interactions": []
-      }
-    },
-    {
-      "id": "page-project-expanded",
-      "title": "项目卡片展开态",
-      "type": "page",
-      "version": 1,
-      "createdAt": 1755786900000,
-      "canvasData": {
-        "x": 620,
-        "y": 0,
-        "width": 1440,
-        "height": 3000,
-        "group": 0
-      },
-      "devMetadata": {
-        "htmlSrc": "pages/project-expanded.html",
-        "interactions": []
-      }
-    }
-  ],
+  "data": [],
   "config": {
     "autoLayout": true,
     "deviceType": "desktop",
