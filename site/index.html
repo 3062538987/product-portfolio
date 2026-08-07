@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>作品集</title>
+  <meta name="description" content="" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- 非阻塞加载：字体不可达时也不阻塞首屏渲染（国内网络友好） -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" /></noscript>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- ============ 导航栏 ============ -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#top" class="nav-brand" id="navBrand" data-scroll>作品集<span class="brand-dot">.</span></a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#projects" class="nav-link" data-scroll>项目作品</a>
+        <a href="#about" class="nav-link" data-scroll>关于我</a>
+        <a href="#articles" class="nav-link nav-link--articles" data-scroll>文章</a>
+      </nav>
+      <button type="button" class="nav-download" onclick="window.print()" data-track="download_resume">下载简历</button>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false" aria-controls="mobileMenu">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 阅读进度条 -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"><span class="scroll-progress__bar"></span></div>
+
+  <!-- ============ 移动端菜单 ============ -->
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    <div class="mobile-menu-inner">
+      <nav class="mobile-menu-links" aria-label="移动端导航">
+        <a href="#projects" class="mobile-link" data-scroll>项目作品</a>
+        <a href="#about" class="mobile-link" data-scroll>关于我</a>
+        <a href="#articles" class="mobile-link mobile-link--articles" data-scroll>文章</a>
+        <hr class="mobile-divider" />
+        <button type="button" class="btn btn-primary mobile-download" onclick="window.print()" data-track="download_resume">下载简历</button>
+      </nav>
+    </div>
+  </div>
+  <div class="mobile-overlay" id="mobileOverlay" hidden></div>
+
+  <main id="top">
+    <!-- ============ Hero 首屏 ============ -->
+    <section class="hero" id="hero" aria-label="个人介绍">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div id="heroContent"></div>
+        </div>
+        <div class="hero-visual" aria-hidden="true" id="heroVisual"></div>
+      </div>
+      <a href="#projects" class="scroll-indicator" data-scroll aria-label="向下滚动">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </a>
+    </section>
+
+    <!-- ============ 项目作品集 ============ -->
+    <section class="section section-projects" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <header class="section-head" id="projectsHead" data-reveal></header>
+        <div class="projects-grid" id="projectsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ 关于我 ============ -->
+    <section class="section section-about" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <header class="section-head" id="aboutHead" data-reveal></header>
+        <div class="about-grid" id="aboutGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ 精选文章 ============ -->
+    <section class="section section-articles" id="articles" aria-labelledby="articles-title">
+      <div class="container">
+        <header class="section-head" id="articlesHead" data-reveal></header>
+        <div class="articles-list" id="articlesList"></div>
+      </div>
+    </section>
+
+    <!-- ============ 联系方式 ============ -->
+    <section class="section section-contact" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-inner">
+        <header class="section-head section-head--center" id="contactHead" data-reveal></header>
+        <div id="contactInner"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ 页脚 ============ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-brand" id="footerBrand">作品集<span class="brand-dot">.</span></span>
+      <p>&copy; <span id="year">2026</span> <span id="footerName">作品集</span> · 保留所有权利</p>
+    </div>
+  </footer>
+
+  <!-- ============ 打印专用简历（屏幕隐藏，由数据生成） ============ -->
+  <div class="resume-only" id="resumeOnly" aria-hidden="true"></div>
+
+  <!-- ============ 脚本：数据 → 渲染 → 交互 ============ -->
+  <script src="assets/js/content.js"></script>
+  <script>
+    /* 本地预览：若后台已「保存」，用 localStorage 草稿覆盖默认内容 */
+    (function () {
+      try {
+        var d = localStorage.getItem('portfolio-content-v1');
+        if (d) { var o = JSON.parse(d); if (o && o.site) window.SITE_CONTENT = o; }
+      } catch (e) {}
+    })();
+  </script>
+  <script src="assets/js/analytics.js"></script>
+  <script src="assets/js/render.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

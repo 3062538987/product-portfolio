@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>后台管理 · 作品集</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- 密码门 -->
+  <div class="admin-gate" id="gate">
+    <div class="admin-gate__card">
+      <h1>后台管理</h1>
+      <p>请输入编辑密码<br>（默认密码在 content.js 的 site.password，进入后可在「设置」修改）</p>
+      <div class="admin-gate__err" id="gateErr"></div>
+      <input type="password" id="gatePwd" placeholder="编辑密码" autocomplete="off" />
+      <button id="gateBtn">进入</button>
+    </div>
+  </div>
+
+  <!-- 管理界面 -->
+  <div class="admin" id="admin" hidden>
+    <div class="admin-top">
+      <span class="admin-top__title">作品集 · 后台管理</span>
+      <div class="admin-actions">
+        <button class="primary" data-action="saveLocal">保存（本地预览）</button>
+        <button data-action="preview">预览首页</button>
+        <button data-action="export">导出</button>
+        <button data-action="import">导入</button>
+        <button class="primary" data-action="publish">发布到 GitHub Pages</button>
+        <button class="danger" data-action="logout">退出</button>
+      </div>
+    </div>
+    <div class="admin-main" id="adminRoot"></div>
+    <input type="file" id="importFile" accept=".js,application/javascript" hidden />
+  </div>
+
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>
