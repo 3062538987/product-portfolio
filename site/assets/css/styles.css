@@ -807,7 +807,16 @@ b, strong { color: var(--ink); font-weight: 600; }
   box-shadow: var(--shadow-2); cursor: grab;
 }
 .feedback-scale { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--muted); }
-.feedback-result { font-size: clamp(22px, 4vw, 30px); font-weight: 700; color: var(--ink); margin-bottom: 18px; min-height: 38px; }
+/* 拖动时的状态文字默认视觉隐藏（让小狗自己表达），保留 aria-live 给读屏；提交后 .is-visible 显示「合作愉快」 */
+.feedback-result {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.feedback-result.is-visible {
+  position: static; width: auto; height: auto; margin: 0 0 18px; overflow: visible;
+  clip: auto; clip-path: none; white-space: normal;
+  font-size: clamp(17px, 3vw, 22px); font-weight: 700; color: var(--ink); min-height: 1.7em;
+}
 .feedback-submit {
   padding: 12px 28px; border-radius: var(--r-pill); background: var(--brand); color: #fff;
   font-size: 15px; font-weight: 600; transition: background var(--t-fast), transform var(--t-fast);
@@ -816,3 +825,68 @@ b, strong { color: var(--ink); font-weight: 600; }
 .feedback-submit[hidden] { display: none; }
 .feedback-thanks { margin-top: 14px; color: var(--emerald); font-size: 14px; font-weight: 600; }
 .feedback-thanks[hidden] { display: none; }
+
+/* ---------- 像素小狗舞台（feedback 互动） ---------- */
+.dog-stage { position: relative; width: 120px; height: 120px; margin: 0 auto 10px; }
+.dog-svg {
+  position: absolute; inset: 0; width: 120px; height: 120px;
+  opacity: 0; transition: opacity var(--t-fast);
+}
+.dog-stage[data-mood="0"] .dog-svg--0,
+.dog-stage[data-mood="1"] .dog-svg--1,
+.dog-stage[data-mood="2"] .dog-svg--2,
+.dog-stage[data-mood="3"] .dog-svg--3,
+.dog-stage[data-mood="shake"] .dog-svg--shake { opacity: 1; }
+
+/* 尾巴 / 爪子的旋转基准：各自包围盒边缘（SVG 内元素需 transform-box） */
+.dog-tail { transform-box: fill-box; transform-origin: left center; }
+.dog-paw { transform-box: fill-box; transform-origin: left center; }
+
+@keyframes wag {
+  from { transform: rotate(-12deg); }
+  to { transform: rotate(14deg); }
+}
+@keyframes hop {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+}
+@keyframes shake-paw {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-9deg) translateX(1px); }
+  50% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+}
+
+/* S2 热情：中速摇尾 */
+.dog-stage[data-mood="2"] .dog-svg--2 .dog-tail { animation: wag .6s ease-in-out infinite alternate; }
+/* S3 兴奋：快速摇尾 + 整体跳动 */
+.dog-stage[data-mood="3"] .dog-svg--3 .dog-tail { animation: wag .3s ease-in-out infinite alternate; }
+.dog-stage[data-mood="3"] .dog-svg--3 { animation: hop .5s var(--e-out) infinite; }
+/* 握手彩蛋：伸爪摇两次（约 700ms，播完定格） */
+.dog-stage[data-mood="shake"] .dog-svg--shake .dog-tail { animation: wag .6s ease-in-out infinite alternate; }
+.dog-stage[data-mood="shake"] .dog-svg--shake .dog-paw { animation: shake-paw .35s ease-in-out 2; }
+
+/* 刻度点：11 个，对齐 0-10 档位 */
+.feedback-slider { position: relative; }
+.feedback-ticks {
+  display: flex; justify-content: space-between;
+  padding: 0 12px; /* thumb 半径补偿，让刻度对准档位中心 */
+  margin-top: 7px;
+}
+.feedback-ticks i { width: 2px; height: 6px; background: var(--line); border-radius: 1px; }
+
+/* 提交后滑块禁用态 */
+.feedback-slider input[type="range"]:disabled { opacity: .5; cursor: default; }
+.feedback-slider input[type="range"]:disabled::-webkit-slider-thumb { cursor: default; }
+.feedback-slider input[type="range"]:disabled::-moz-range-thumb { cursor: default; }
+
+/* 移动端：狗图 96px（24 的 4 倍整数，保持像素锐利） */
+@media (max-width: 480px) {
+  .dog-stage { width: 96px; height: 96px; }
+  .dog-svg { width: 96px; height: 96px; }
+}
+
+/* 减弱动效偏好：全部定格，功能完整 */
+@media (prefers-reduced-motion: reduce) {
+  .dog-svg, .dog-tail, .dog-paw { animation: none !important; transition: none !important; }
+}
