@@ -102,8 +102,8 @@ b, strong { color: var(--ink); font-weight: 600; }
 }
 
 /* ---------- 通用：区块标题 ---------- */
-.section { padding: clamp(72px, 11vw, 128px) 0; }
-.section-head { margin-bottom: var(--sp-12); max-width: 720px; }
+.section { padding: clamp(44px, 6.5vw, 84px) 0; }
+.section-head { margin-bottom: var(--sp-8); max-width: 720px; }
 .section-head--center { margin-left: auto; margin-right: auto; text-align: center; }
 .section-title {
   font-family: var(--font-display);
@@ -558,6 +558,16 @@ b, strong { color: var(--ink); font-weight: 600; }
    FOOTER
    ============================================================ */
 .footer { background: var(--ink); padding: var(--sp-8) 0; }
+.footer-admin { display: inline-block; margin-top: 10px; color: #93C5FD; font-size: 14px; font-weight: 600; }
+.footer-admin:hover { color: #fff; }
+.admin-fab {
+  position: fixed; right: 18px; bottom: 18px; z-index: 60;
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--brand); color: #fff; font-size: 20px; line-height: 1;
+  box-shadow: var(--shadow-3); transition: transform var(--t-fast), background var(--t-fast);
+}
+.admin-fab:hover { transform: translateY(-2px); background: var(--brand-700); }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; }
 .footer-brand { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: #fff; }
 .footer p { font-size: 13px; color: #94A3B8; }

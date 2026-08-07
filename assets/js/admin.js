@@ -374,8 +374,12 @@
   var adminEl = document.getElementById('admin');
   function tryUnlock() {
     var v = document.getElementById('gatePwd').value;
-    if (v === String(data.site.password)) { gate.hidden = true; adminEl.hidden = false; renderAdmin(); }
-    else { document.getElementById('gateErr').textContent = '密码错误'; }
+    // 用「文件里的权威密码」或「本地草稿里的密码」任一匹配即可，
+    // 避免旧草稿把密码记成旧值导致永远进不去后台。
+    var pwdFile = window.SITE_CONTENT && window.SITE_CONTENT.site && window.SITE_CONTENT.site.password;
+    var pwdDraft = data && data.site && data.site.password;
+    if (v === String(pwdFile) || v === String(pwdDraft)) { gate.hidden = true; adminEl.hidden = false; renderAdmin(); }
+    else { document.getElementById('gateErr').textContent = '密码错误，请重试'; }
   }
   function logout() { adminEl.hidden = true; gate.hidden = false; document.getElementById('gatePwd').value = ''; }
   document.getElementById('gateBtn').addEventListener('click', tryUnlock);
