@@ -809,31 +809,19 @@ b, strong { color: var(--ink); font-weight: 600; }
 }
 .bottom-card--contact { text-align: center; }
 .bottom-card--feedback { text-align: left; }
-.bottom-card--feedback .feedback-card { background: transparent; border: none; box-shadow: none; padding: 0; }
+.bottom-card--feedback .feedback-card { background: transparent; border: none; box-shadow: none; padding: 0; text-align: left; }
+.feedback-dogrow { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 18px; flex-wrap: wrap; }
+.feedback-dogrow .dog-stage { margin: 0; }
 @media (max-width: 640px) {
   .bottom-row { grid-template-columns: 1fr; gap: 18px; }
+  .bottom-card--feedback { order: -1; } /* 移动端：小狗反馈卡置顶，联系方式在下 */
 }
 
 .feedback-card {
   max-width: 560px; margin: 0 auto; background: var(--surface-2);
   border: 1px solid var(--line); border-radius: var(--r-xl);
-  padding: clamp(24px, 4vw, 40px); text-align: center;
+  padding: clamp(24px, 4vw, 40px); text-align: left;
   box-shadow: var(--shadow-1);
-}
-/* 两列并排：左=文案+滑块，右=像素小狗（缩短纵向高度，避免沉底） */
-.feedback-card--split {
-  max-width: 760px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: clamp(24px, 4vw, 52px);
-  align-items: center;
-  text-align: left;
-}
-.feedback-card--split .feedback-main { grid-column: 1; min-width: 0; }
-.feedback-card--split .dog-stage { grid-column: 2; grid-row: 1 / span 2; align-self: center; margin: 0; }
-@media (max-width: 560px) {
-  .feedback-card--split { grid-template-columns: 1fr; gap: 18px; }
-  .feedback-card--split .dog-stage { grid-column: 1; grid-row: auto; order: -1; margin: 0 auto; }
 }
 .feedback-slider { margin: 8px 0 18px; }
 .feedback-slider input[type="range"] {
@@ -869,9 +857,9 @@ b, strong { color: var(--ink); font-weight: 600; }
 .feedback-thanks[hidden] { display: none; }
 
 /* ---------- 像素小狗舞台（feedback 互动） ---------- */
-.dog-stage { position: relative; width: 120px; height: 120px; margin: 0 auto 10px; }
+.dog-stage { position: relative; width: 160px; height: 160px; margin: 0 auto 10px; }
 .dog-svg {
-  position: absolute; inset: 0; width: 120px; height: 120px;
+  position: absolute; inset: 0; width: 160px; height: 160px;
   opacity: 0; transition: opacity var(--t-fast);
 }
 .dog-stage[data-mood="0"] .dog-svg--0,
@@ -922,10 +910,10 @@ b, strong { color: var(--ink); font-weight: 600; }
 .feedback-slider input[type="range"]:disabled::-webkit-slider-thumb { cursor: default; }
 .feedback-slider input[type="range"]:disabled::-moz-range-thumb { cursor: default; }
 
-/* 移动端：狗图 96px（24 的 4 倍整数，保持像素锐利） */
+/* 移动端：狗图 128px（24 的整数倍，保持像素锐利；比原 96 更大） */
 @media (max-width: 480px) {
-  .dog-stage { width: 96px; height: 96px; }
-  .dog-svg { width: 96px; height: 96px; }
+  .dog-stage { width: 128px; height: 128px; }
+  .dog-svg { width: 128px; height: 128px; }
 }
 
 /* 减弱动效偏好：全部定格，功能完整 */
