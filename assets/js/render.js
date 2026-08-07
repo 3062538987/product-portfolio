@@ -27,6 +27,12 @@
   };
   function icon(type) { return ICONS[type] || '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="currentColor"/></svg>'; }
 
+  var CONTACT_ICONS = {
+    email: '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7.5 8 5.5 8-5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+    wechat: '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9.5 4C5.9 4 3 6.5 3 9.6c0 1.8.97 3.4 2.5 4.4l-.63 2 2.2-1.15c.45.12.93.2 1.43.22-.17-.55-.27-1.12-.27-1.72C8.23 10.4 11.2 8 14.75 8c.32 0 .63.02.93.05C14.98 5.9 12.5 4 9.5 4Z" fill="currentColor"/><path d="M14.7 9.5c-3 0-5.4 2-5.4 4.4s2.4 4.4 5.4 4.4c.53 0 1.04-.07 1.5-.2l1.8.95-.5-1.6c1.5-.85 2.5-2.2 2.5-3.55 0-2.4-2.3-4.4-5.3-4.4Z" fill="currentColor" opacity=".55"/></svg>'
+  };
+  var DOC_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+
   /* ---------------- 导航 / 页脚 / 元信息 ---------------- */
   function renderMeta() {
     var s = D.site || {};
@@ -44,7 +50,7 @@
     var c = $('heroContent'); if (!c) return;
     var html = '';
     if (h.kicker) html += '<p class="kicker" data-reveal>' + esc(h.kicker) + '</p>';
-    if (h.name) html += '<h1 class="hero-name" data-reveal>' + esc(h.name) + '</h1>';
+    if (h.name) html += '<h1 class="hero-name" data-reveal><span class="hero-name-mark">' + esc(h.name) + '</span></h1>';
     if (h.role) html += '<p class="hero-role" data-reveal>' + esc(h.role) + '</p>';
     if (h.stats && h.stats.length) {
       html += '<div class="hero-stats" data-reveal aria-label="核心指标">';
@@ -86,7 +92,12 @@
     modules.forEach(function (m) {
       var inner = '';
       (m.paragraphs || []).forEach(function (p) { if (p) inner += '<p>' + md(p) + '</p>'; });
-      (m.bullets || []).forEach(function (b) { if (b) inner += '<p>' + md(b) + '</p>'; });
+      var blts = (m.bullets || []).filter(Boolean);
+      if (blts.length) {
+        inner += '<ul class="module-bullets">';
+        blts.forEach(function (b) { inner += '<li>' + md(b) + '</li>'; });
+        inner += '</ul>';
+      }
       if (m.table && m.table.head && m.table.rows && m.table.rows.length) {
         inner += '<div class="table-wrap"><table class="data-table"><thead><tr>';
         m.table.head.forEach(function (th) { inner += '<th>' + esc(th) + '</th>'; });
@@ -114,7 +125,7 @@
       (d.links || []).forEach(function (l) {
         if (l.url) links += '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label || '查看') + '</a>';
       });
-      items += '<li><span class="doc-name">' + esc(d.name || '') + '</span>' +
+      items += '<li><span class="doc-name">' + DOC_ICON + esc(d.name || '') + '</span>' +
         (links ? '<span class="doc-actions">' + links + '</span>' : '') + '</li>';
     });
     if (!items) return '';
@@ -142,12 +153,14 @@
       var metrics = (p.metrics && p.metrics.length) ? '<span class="card-metrics" aria-label="关键指标">' +
         p.metrics.map(function (m) { return '<span class="mini-metric"><b>' + esc(m.b) + '</b><i>' + esc(m.i) + '</i></span>'; }).join('') + '</span>' : '';
       var bodyInner = renderModules(p.modules) + renderDeliverables(p.deliverables);
-      html += '<article class="project-card" data-kind="project" data-reveal' + style + '>' +
-        '<button type="button" class="card-toggle" aria-expanded="false" aria-controls="' + id + '-body" id="' + id + '-toggle">' +
+      // 第一个项目默认展开：让 HR 一进来就看到完整 STAR 结构，并意识到卡片可展开
+      var open = idx === 0;
+      html += '<article class="project-card' + (open ? ' is-open' : '') + '" data-kind="project" data-reveal' + style + '>' +
+        '<button type="button" class="card-toggle" aria-expanded="' + (open ? 'true' : 'false') + '" aria-controls="' + id + '-body" id="' + id + '-toggle">' +
         '<span class="card-toggle-main"><span class="card-name">' + esc(p.name || '') + '</span>' +
         (p.summary ? '<span class="card-summary">' + esc(p.summary) + '</span>' : '') + tags + '</span>' +
-        metrics + '<span class="card-chevron" aria-hidden="true">展开</span></button>' +
-        '<div class="card-body" id="' + id + '-body" role="region" aria-labelledby="' + id + '-toggle" hidden>' +
+        metrics + '<span class="card-chevron" aria-hidden="true">' + (open ? '收起' : '展开') + '</span></button>' +
+        '<div class="card-body" id="' + id + '-body" role="region" aria-labelledby="' + id + '-toggle"' + (open ? '' : ' hidden') + '>' +
         '<div class="card-body-inner">' + bodyInner + '</div></div></article>';
     });
     sec.innerHTML = html;
@@ -207,7 +220,7 @@
         '<span class="card-toggle-main"><span class="card-name">' + esc(a.title || '') + '</span>' +
         (a.date || a.reading ? '<span class="art-meta"><time>' + esc(a.date || '') + '</time>' +
         (a.reading ? ' · ' + esc(a.reading) : '') + '</span>' : '') + '</span>' +
-        '<span class="card-chevron" aria-hidden="true">▾</span></button>' +
+        '<span class="card-chevron" aria-hidden="true">展开</span></button>' +
         '<div class="card-body" id="' + id + '-body" role="region" aria-labelledby="' + id + '-toggle" hidden>' +
         '<div class="card-body-inner">' + paras + '</div></div></article>';
     });
@@ -226,9 +239,9 @@
         (head.sub ? '<p class="section-sub">' + esc(head.sub) + '</p>' : '');
     }
     var list = '';
-    if (c.email) list += '<li><span class="contact-icon" aria-hidden="true">📧</span>' +
+    if (c.email) list += '<li><span class="contact-icon" aria-hidden="true">' + CONTACT_ICONS.email + '</span>' +
       '<a href="mailto:' + esc(c.email) + '" data-track="email">' + esc(c.email) + '</a></li>';
-    if (c.wechat) list += '<li><span class="contact-icon" aria-hidden="true">💬</span>' +
+    if (c.wechat) list += '<li><span class="contact-icon" aria-hidden="true">' + CONTACT_ICONS.wechat + '</span>' +
       '<span data-track="wechat">微信：' + esc(c.wechat) + '</span></li>';
     var socials = '';
     (c.socials || []).forEach(function (s) {

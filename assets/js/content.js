@@ -59,9 +59,9 @@ window.SITE_CONTENT = {
         { no: "05", title: "复盘与反思", paragraphs: ["如果重来，我会在出方案前先做一轮用户访谈，而不是直接基于工单数据做判断。这让我学到：**数据告诉你“有问题”，但只有用户能告诉你“为什么有问题”和“怎么解决才对”。**"], bullets: [], note: "" }
       ],
       deliverables: [
-        { name: "📄 PRD 文档", links: [{ label: "在线预览", url: "" }, { label: "PDF 下载", url: "" }] },
-        { name: "📊 业务流程图", links: [{ label: "查看大图", url: "" }] },
-        { name: "📐 信息架构图", links: [{ label: "查看大图", url: "" }] }
+        { name: "PRD 文档", links: [{ label: "在线预览", url: "" }, { label: "PDF 下载", url: "" }] },
+        { name: "业务流程图", links: [{ label: "查看大图", url: "" }] },
+        { name: "信息架构图", links: [{ label: "查看大图", url: "" }] }
       ]
     },
     {
@@ -110,8 +110,8 @@ window.SITE_CONTENT = {
       name: "跨境履约中台：异常订单处理时效提升 3 倍",
       summary: "重构跨境订单异常处置流程，平均处理时效从 24h 降到 8h，人工成本下降 35%，处理准确率达 99.2%。",
       tags: ["供应链", "异常管理", "流程优化"],
-      accent: "#B45309",
-      accentSoft: "#FFFBEB",
+      accent: "#2563EB",
+      accentSoft: "#EFF6FF",
       metrics: [
         { b: "24h→8h", i: "处理时效" },
         { b: "-35%", i: "人工成本" },
