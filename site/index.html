@@ -92,6 +92,26 @@
         <div id="contactInner"></div>
       </div>
     </section>
+
+    <!-- ============ 简历末尾：创意互动（俏皮推荐滑块） ============ -->
+    <section class="section section-feedback" id="feedback" aria-labelledby="feedback-title">
+      <div class="container">
+        <header class="section-head section-head--center" data-reveal>
+          <p class="kicker">YOUR TAKE</p>
+          <h2 class="section-title" id="feedback-title">最后，想听听你的感觉</h2>
+          <p class="section-sub">不用打分，拖一下就好——你的直觉会被悄悄记下来。</p>
+        </header>
+        <div class="feedback-card" data-reveal>
+          <div class="feedback-slider">
+            <input type="range" id="recoRange" min="0" max="100" value="50" step="1" aria-describedby="recoLabel" />
+            <div class="feedback-scale"><span>暂不考虑</span><span>立刻约聊</span></div>
+          </div>
+          <div class="feedback-result" id="recoLabel" aria-live="polite">🙂 想多了解</div>
+          <button type="button" class="feedback-submit" id="recoSubmit">记下我的感觉</button>
+          <p class="feedback-thanks" id="recoThanks" hidden>谢谢你的心意 💛 已悄悄记下。</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ============ 页脚 ============ -->
@@ -99,8 +119,11 @@
     <div class="container footer-inner">
       <span class="footer-brand" id="footerBrand">作品集<span class="brand-dot">.</span></span>
       <p>&copy; <span id="year">2026</span> <span id="footerName">作品集</span> · 保留所有权利</p>
+      <a href="admin.html" class="footer-admin">后台管理 →</a>
     </div>
   </footer>
+
+  <a href="admin.html" class="admin-fab" aria-label="后台管理" title="后台管理">⚙</a>
 
   <!-- ============ 打印专用简历（屏幕隐藏，由数据生成） ============ -->
   <div class="resume-only" id="resumeOnly" aria-hidden="true"></div>

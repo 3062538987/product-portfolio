@@ -135,6 +135,43 @@
     if (e.key === 'Escape' && mobileMenu && !mobileMenu.hidden) { closeMobileMenu(); navToggle.focus(); }
   });
 
+  /* ---------- 7. 简历末尾：俏皮推荐滑块 ---------- */
+  function initFeedback() {
+    var range = document.getElementById('recoRange');
+    var label = document.getElementById('recoLabel');
+    var submit = document.getElementById('recoSubmit');
+    var thanks = document.getElementById('recoThanks');
+    if (!range || !label) return;
+    var buckets = [
+      { max: 20, text: '👀 暂且观望' },
+      { max: 40, text: '🤔 有点意思' },
+      { max: 60, text: '🙂 想多了解' },
+      { max: 80, text: '🤝 想聊聊' },
+      { max: 101, text: '🚀 马上找你' }
+    ];
+    function update() {
+      var v = parseInt(range.value, 10);
+      var pct = v + '%';
+      range.style.background = 'linear-gradient(90deg, var(--brand) ' + pct + ', #E2E8F0 ' + pct + ')';
+      for (var i = 0; i < buckets.length; i++) {
+        if (v < buckets[i].max) { label.textContent = buckets[i].text; break; }
+      }
+    }
+    range.addEventListener('input', update);
+    update();
+    if (submit) {
+      var KEY = 'portfolio-feedback-done';
+      try { if (localStorage.getItem(KEY)) { submit.hidden = true; if (thanks) thanks.hidden = false; } } catch (e) {}
+      submit.addEventListener('click', function () {
+        var v = parseInt(range.value, 10);
+        if (window.track) window.track('resume_recommend', v);
+        try { localStorage.setItem(KEY, String(v)); } catch (e) {}
+        submit.hidden = true;
+        if (thanks) { thanks.hidden = false; thanks.textContent = '谢谢你的心意 💛 已悄悄记下（' + v + ' 分）。'; }
+      });
+    }
+  }
+
   /* ---------- 6. 项目手风琴（单开模式） ---------- */
   var cards = Array.from(document.querySelectorAll('.project-card'));
 
@@ -179,4 +216,5 @@
     }
   }
 
+  initFeedback();
 })();
