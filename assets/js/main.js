@@ -135,14 +135,40 @@
     if (e.key === 'Escape' && mobileMenu && !mobileMenu.hidden) { closeMobileMenu(); navToggle.focus(); }
   });
 
-  /* ---------- 7. 简历末尾：像素小狗反馈（滑块 0-10 → 四档狗状态） ---------- */
+  /* ---------- 7. 简历末尾：像素小狗反馈（滑块 0-10 → 四档狗状态 + 实时分数） ---------- */
   function initFeedback() {
     var range = document.getElementById('recoRange');
     var label = document.getElementById('recoLabel');
     var submit = document.getElementById('recoSubmit');
     var thanks = document.getElementById('recoThanks');
     var stage = document.getElementById('dogStage');
+    var bubble = document.getElementById('recoBubble');
+    var ticksWrap = document.getElementById('recoScaleMarks');
     if (!range || !label || !stage) return;
+
+    var THUMB = 26, MIN = 0, MAX = 10;
+
+    // 生成 0-10 刻度数字
+    var marks = [];
+    if (ticksWrap) {
+      for (var n = MIN; n <= MAX; n++) {
+        var s = document.createElement('span');
+        s.textContent = n;
+        ticksWrap.appendChild(s);
+        marks.push(s);
+      }
+    }
+
+    // 数值跟随滑块拇指（气泡 + 刻度数字共用同一坐标公式，保证对齐）
+    function thumbX(v) {
+      var w = range.clientWidth || 1;
+      return (v - MIN) / (MAX - MIN) * (w - THUMB) + THUMB / 2;
+    }
+    function layout() {
+      if (bubble) bubble.style.left = thumbX(parseInt(range.value, 10)) + 'px';
+      for (var i = 0; i < marks.length; i++) marks[i].style.left = thumbX(i) + 'px';
+    }
+
     var buckets = [
       { max: 4, mood: '0', text: '暂时没感觉' },
       { max: 7, mood: '1', text: '有点意思' },
@@ -160,9 +186,15 @@
           break;
         }
       }
+      if (bubble) bubble.textContent = v;
+      for (var j = 0; j < marks.length; j++) marks[j].classList.toggle('is-active', j === v);
+      layout();
     }
     range.addEventListener('input', update);
     update();
+    window.addEventListener('resize', layout);
+    window.addEventListener('load', layout);
+
     if (submit) {
       var KEY = 'portfolio-feedback-done';
       try {
@@ -174,6 +206,7 @@
           label.textContent = '合作愉快。';
           label.classList.add('is-visible');
           if (thanks) thanks.hidden = false;
+          if (bubble) bubble.hidden = true;
         }
       } catch (e) {}
       submit.addEventListener('click', function () {
@@ -185,6 +218,7 @@
         stage.dataset.mood = 'shake';
         label.textContent = '合作愉快。';
         label.classList.add('is-visible');
+        if (bubble) bubble.hidden = true;
         var reduced = false;
         try { reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
         setTimeout(function () {

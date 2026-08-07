@@ -823,10 +823,22 @@ b, strong { color: var(--ink); font-weight: 600; }
   padding: clamp(24px, 4vw, 40px); text-align: left;
   box-shadow: var(--shadow-1);
 }
-.feedback-slider { margin: 8px 0 18px; }
+.feedback-slider { position: relative; margin: 8px 0 18px; }
+.feedback-rail { position: relative; height: 8px; margin-top: 30px; }
 .feedback-slider input[type="range"] {
-  -webkit-appearance: none; appearance: none; width: 100%; height: 8px;
+  -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 8px;
   border-radius: 999px; background: #E2E8F0; outline: none; cursor: pointer;
+}
+/* 拖动时跟随滑块的数值气泡：实时显示 0-10 分数 */
+.feedback-bubble {
+  position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+  background: var(--brand); color: #fff; font-size: 13px; font-weight: 700; line-height: 1;
+  padding: 5px 9px; border-radius: 999px; pointer-events: none; white-space: nowrap;
+  box-shadow: var(--shadow-2); transition: left .04s linear;
+}
+.feedback-bubble::after {
+  content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: var(--brand);
 }
 .feedback-slider input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none; appearance: none; width: 26px; height: 26px; border-radius: 50%;
@@ -896,14 +908,17 @@ b, strong { color: var(--ink); font-weight: 600; }
 .dog-stage[data-mood="shake"] .dog-svg--shake .dog-tail { animation: wag .6s ease-in-out infinite alternate; }
 .dog-stage[data-mood="shake"] .dog-svg--shake .dog-paw { animation: shake-paw .35s ease-in-out 2; }
 
-/* 刻度点：11 个，对齐 0-10 档位 */
-.feedback-slider { position: relative; }
-.feedback-ticks {
-  display: flex; justify-content: space-between;
-  padding: 0 12px; /* thumb 半径补偿，让刻度对准档位中心 */
-  margin-top: 7px;
+/* 0-10 分数刻度：数字 + 小刻度点，由 JS 按滑块档位精确定位（与滑块拇指对齐） */
+.feedback-ticks { position: relative; height: 20px; margin-top: 10px; }
+.feedback-ticks span {
+  position: absolute; top: 12px; transform: translateX(-50%);
+  font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums;
 }
-.feedback-ticks i { width: 2px; height: 6px; background: var(--line); border-radius: 1px; }
+.feedback-ticks span::before {
+  content: ""; position: absolute; top: -9px; left: 50%; width: 2px; height: 6px;
+  background: var(--line); border-radius: 1px; transform: translateX(-50%);
+}
+.feedback-ticks span.is-active { color: var(--brand); font-weight: 700; }
 
 /* 提交后滑块禁用态 */
 .feedback-slider input[type="range"]:disabled { opacity: .5; cursor: default; }
