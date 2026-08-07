@@ -793,6 +793,21 @@ b, strong { color: var(--ink); font-weight: 600; }
   padding: clamp(24px, 4vw, 40px); text-align: center;
   box-shadow: var(--shadow-1);
 }
+/* 两列并排：左=文案+滑块，右=像素小狗（缩短纵向高度，避免沉底） */
+.feedback-card--split {
+  max-width: 760px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(24px, 4vw, 52px);
+  align-items: center;
+  text-align: left;
+}
+.feedback-card--split .feedback-main { grid-column: 1; min-width: 0; }
+.feedback-card--split .dog-stage { grid-column: 2; grid-row: 1 / span 2; align-self: center; margin: 0; }
+@media (max-width: 560px) {
+  .feedback-card--split { grid-template-columns: 1fr; gap: 18px; }
+  .feedback-card--split .dog-stage { grid-column: 1; grid-row: auto; order: -1; margin: 0 auto; }
+}
 .feedback-slider { margin: 8px 0 18px; }
 .feedback-slider input[type="range"] {
   -webkit-appearance: none; appearance: none; width: 100%; height: 8px;
