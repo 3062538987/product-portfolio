@@ -65,6 +65,8 @@
 
 /* ---------- Reset & Base ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* hidden 属性必须永远生效：组件 class（如 .admin-gate 的 display:flex）会覆盖 UA 默认样式，需强制 */
+[hidden] { display: none !important; }
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-h) + 16px);
