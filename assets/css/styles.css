@@ -885,7 +885,7 @@ b, strong { color: var(--ink); font-weight: 600; }
   width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 3px solid var(--brand);
   box-shadow: var(--shadow-2); cursor: grab;
 }
-.feedback-scale { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--muted); }
+.feedback-scale { display: flex; justify-content: space-between; margin-top: 16px; font-size: 12px; color: var(--muted); }
 /* 拖动时的状态文字默认视觉隐藏（让小狗自己表达），保留 aria-live 给读屏；提交后 .is-visible 显示「合作愉快」 */
 .feedback-result {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -945,17 +945,6 @@ b, strong { color: var(--ink); font-weight: 600; }
 .dog-stage[data-mood="shake"] .dog-svg--shake .dog-tail { animation: wag .6s ease-in-out infinite alternate; }
 .dog-stage[data-mood="shake"] .dog-svg--shake .dog-paw { animation: shake-paw .35s ease-in-out 2; }
 
-/* 0-10 分数刻度：数字 + 小刻度点，由 JS 按滑块档位精确定位（与滑块拇指对齐） */
-.feedback-ticks { position: relative; height: 20px; margin-top: 10px; }
-.feedback-ticks span {
-  position: absolute; top: 12px; transform: translateX(-50%);
-  font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums;
-}
-.feedback-ticks span::before {
-  content: ""; position: absolute; top: -9px; left: 50%; width: 2px; height: 6px;
-  background: var(--line); border-radius: 1px; transform: translateX(-50%);
-}
-.feedback-ticks span.is-active { color: var(--brand); font-weight: 700; }
 
 /* 提交后滑块禁用态 */
 .feedback-slider input[type="range"]:disabled { opacity: .5; cursor: default; }

@@ -150,30 +150,17 @@
     var thanks = document.getElementById('recoThanks');
     var stage = document.getElementById('dogStage');
     var bubble = document.getElementById('recoBubble');
-    var ticksWrap = document.getElementById('recoScaleMarks');
     if (!range || !label || !stage) return;
 
     var THUMB = 26, MIN = 0, MAX = 10;
 
-    // 生成 0-10 刻度数字
-    var marks = [];
-    if (ticksWrap) {
-      for (var n = MIN; n <= MAX; n++) {
-        var s = document.createElement('span');
-        s.textContent = n;
-        ticksWrap.appendChild(s);
-        marks.push(s);
-      }
-    }
-
-    // 数值跟随滑块拇指（气泡 + 刻度数字共用同一坐标公式，保证对齐）
+    // 数值气泡跟随滑块拇指
     function thumbX(v) {
       var w = range.clientWidth || 1;
       return (v - MIN) / (MAX - MIN) * (w - THUMB) + THUMB / 2;
     }
     function layout() {
       if (bubble) bubble.style.left = thumbX(parseInt(range.value, 10)) + 'px';
-      for (var i = 0; i < marks.length; i++) marks[i].style.left = thumbX(i) + 'px';
     }
 
     var buckets = [
@@ -194,7 +181,6 @@
         }
       }
       if (bubble) bubble.textContent = v;
-      for (var j = 0; j < marks.length; j++) marks[j].classList.toggle('is-active', j === v);
       layout();
     }
     range.addEventListener('input', update);
