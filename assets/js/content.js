@@ -18,12 +18,12 @@ window.SITE_CONTENT = {
   hero: {
     kicker: "PORTFOLIO · 2027 届秋招",
     name: "江宇芳",
-    role: "AI产品经理 · 2段AI产品实习，专注B端电商场景的AI产品落地与数据驱动迭代。",
+    role: "AI 产品经理 · 2 段 AI 产品实习，擅长把大模型能力拆成可落地的 B 端业务链路。",
     avatar: null,
     stats: [
       { num: "65→85%", small: "", label: "内容测试通过率" },
       { num: "100", small: "+", label: "真实用户在用" },
-      { num: "1935", small: "+", label: "API路径验证" }
+      { num: "18", small: "张", label: "从 0 设计的数据表" }
     ],
     tags: ["AI产品", "B端SaaS", "数据驱动", "0-1落地"],
     cta: { primary: "查看作品", secondary: "了解更多" }
@@ -243,7 +243,7 @@ window.SITE_CONTENT = {
   ],
 
   about: {
-    statement: "我是江宇芳，2 段 AI 产品实习经历，专注 B 端电商场景的 AI 产品落地与数据驱动迭代。具备从需求分析→PRD 撰写→业务流程设计→跨部门推进→效果验证→数据飞轮迭代的完整闭环能力。在跨境电商 POD 赛道深度参与 Bloom OS AI Native 业务操作系统建设，独立完成 S1 选品开款全流程梳理、供应链 PRD 体系搭建、绩效管控自动化 PRD。掌握大模型 8 维选型方法论，熟练运用飞书多维表格/工作流、Coze/Dify/Cursor 等AI工具链。目标坚定：在 AI 产品方向持续深耕，成长为懂业务、懂技术、懂 AI 的复合型产品经理。",
+    statement: "我是江宇芳，2 段 AI 产品实习经历，专注 B 端电商场景的 AI 产品落地。我能从 0 到 1 把模型能力拆成可被业务消化的链路：需求拆解 → PRD → 业务流程 → 跨部门推进 → 数据验证 → 飞轮迭代。在跨境电商 POD 赛道深度参与 Bloom OS（AI Native 业务操作系统）建设，独立梳理选品开款全流程、搭建供应链 API 逆向体系、设计绩效管控自动化方案。掌握大模型 8 维选型方法论，熟练使用飞书多维表格/工作流、Coze/Dify/Cursor 等 AI 工具链。",
     goal: { label: "职业目标", text: "在 AI 产品方向持续深耕，成长为懂业务、懂技术、懂 AI 的复合型产品经理。" },
     timeline: [
       { period: "2026.05 – 2026.08", text: "小毛虫（福州）科技 · AI产品助理实习生" },
@@ -268,7 +268,7 @@ window.SITE_CONTENT = {
 
   sections: {
     projects: { kicker: "01 — 项目作品集", title: "六个 AI × B 端的产品实战故事", sub: "点击每个项目展开完整 STAR 叙事：背景、角色、决策、数据与复盘。" },
-    about: { kicker: "02 — 关于我", title: "一个相信「数据流支撑货物流」的 AI 产品人" },
+    about: { kicker: "02 — 关于我", title: "一个把 AI 能力拆成业务链路的 B 端产品人" },
     articles: { kicker: "03 — 精选文章", title: "把思考写下来" },
     contact: { kicker: "04 — 联系方式", title: "很高兴认识你", sub: "如果我的经历让你眼前一亮，欢迎随时联系。" }
   }
