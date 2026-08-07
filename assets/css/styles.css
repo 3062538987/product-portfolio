@@ -787,6 +787,33 @@ b, strong { color: var(--ink); font-weight: 600; }
 
 /* ---------- 简历末尾：俏皮推荐滑块 ---------- */
 .section-feedback { background: var(--surface); }
+
+/* ---------- 页尾双卡：联系方式 + 像素小狗反馈 ---------- */
+.section-bottom { background: var(--surface-2); }
+.bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+.bottom-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: clamp(24px, 4vw, 40px);
+  box-shadow: var(--shadow-1);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.bottom-card--contact { text-align: center; }
+.bottom-card--feedback { text-align: left; }
+.bottom-card--feedback .feedback-card { background: transparent; border: none; box-shadow: none; padding: 0; }
+@media (max-width: 640px) {
+  .bottom-row { grid-template-columns: 1fr; gap: 18px; }
+}
+
 .feedback-card {
   max-width: 560px; margin: 0 auto; background: var(--surface-2);
   border: 1px solid var(--line); border-radius: var(--r-xl);
