@@ -11,7 +11,7 @@ window.SITE_CONTENT = {
     title: "江宇芳 · AI产品经理 | 作品集",
     description: "江宇芳的个人作品集：2段AI产品实习经历，专注B端电商场景的AI产品落地与数据驱动迭代。",
     password: "350721",
-    analytics: { provider: "goatcounter", code: "" },
+    analytics: { provider: "goatcounter", code: "3062538987" },
     github: { owner: "3062538987", repo: "product-portfolio", branch: "gh-pages", path: "assets/js/content.js" }
   },
 
