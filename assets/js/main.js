@@ -239,6 +239,19 @@
         var kind = card.getAttribute('data-kind');
         var nm = (card.querySelector('.card-name') || {}).textContent || '';
         window.track(kind === 'article' ? 'article_open' : 'project_open', nm);
+        // 去重「有效浏览」：同一次访问内展开同一项目只记 1 次 project_view，
+        // 用于对比「哪个项目更受 HR 青睐」（区分于会重复计数的 project_open 深度互动）
+        if (kind !== 'article' && nm && window.sessionStorage) {
+          try {
+            var KEY = 'gc_proj_viewed';
+            var viewed = JSON.parse(sessionStorage.getItem(KEY) || '[]');
+            if (viewed.indexOf(nm) === -1) {
+              viewed.push(nm);
+              sessionStorage.setItem(KEY, JSON.stringify(viewed));
+              window.track('project_view', nm);
+            }
+          } catch (e) {}
+        }
       }
     });
     toggle.addEventListener('keydown', function (e) {

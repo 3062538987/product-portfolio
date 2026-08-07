@@ -154,8 +154,8 @@
         p.metrics.map(function (m) { return '<span class="mini-metric"><b>' + esc(m.b) + '</b><i>' + esc(m.i) + '</i></span>'; }).join('') + '</span>' : '';
       var actions = '<div class="card-actions"><button type="button" class="prd-export-btn" data-prd="' + esc(id) + '" data-track="export_prd">' + DOC_ICON + '导出 PRD（PDF）</button></div>';
       var bodyInner = renderModules(p.modules) + renderDeliverables(p.deliverables) + actions;
-      // 第一个项目默认展开：让 HR 一进来就看到完整 STAR 结构，并意识到卡片可展开
-      var open = idx === 0;
+      // 所有项目默认收起：公平对比各项目展开数据（避免首卡被默认展开污染），靠醒目的「展开」按钮引导点击
+      var open = false;
       html += '<article class="project-card' + (open ? ' is-open' : '') + '" data-kind="project" data-reveal' + style + '>' +
         '<button type="button" class="card-toggle" aria-expanded="' + (open ? 'true' : 'false') + '" aria-controls="' + id + '-body" id="' + id + '-toggle">' +
         '<span class="card-toggle-main"><span class="card-name">' + esc(p.name || '') + '</span>' +

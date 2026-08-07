@@ -374,9 +374,10 @@ b, strong { color: var(--ink); font-weight: 600; }
   width: 100%;
   display: flex; align-items: flex-start; gap: var(--sp-6);
   padding: var(--sp-6); text-align: left; background: transparent;
-  transition: background var(--t-fast);
+  border-radius: 14px; cursor: pointer;
+  transition: background var(--t-fast), box-shadow var(--t-fast);
 }
-.card-toggle:hover { background: var(--surface-2); }
+.card-toggle:hover { background: var(--accent-soft, #EFF6FF); box-shadow: inset 0 0 0 1px var(--accent-100, #DBEAFE); }
 .card-toggle-main { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 
 .card-name {
@@ -401,15 +402,16 @@ b, strong { color: var(--ink); font-weight: 600; }
 .mini-metric i { font-size: 11px; color: var(--faint); font-style: normal; margin-top: 2px; }
 
 .card-chevron {
-  font-size: 13px; font-weight: 600; color: var(--faint);
+  font-size: 13px; font-weight: 700; color: #fff;
   flex-shrink: 0; align-self: center; white-space: nowrap;
-  padding: 5px 12px; border: 1px solid var(--line); border-radius: var(--r-pill);
-  background: var(--surface);
+  padding: 7px 16px; border: 1px solid var(--accent, #2563EB); border-radius: var(--r-pill);
+  background: var(--accent, #2563EB);
   transition: color var(--t-fast), background var(--t-fast), border-color var(--t-fast);
 }
+.card-toggle:hover .card-chevron { background: #1D4ED8; border-color: #1D4ED8; }
 .card-toggle[aria-expanded="true"] .card-chevron {
-  color: var(--accent, var(--brand)); border-color: var(--accent-100, var(--brand-100));
-  background: var(--accent-soft, var(--brand-50));
+  color: var(--accent, #2563EB); border-color: var(--accent-100, #DBEAFE);
+  background: var(--accent-soft, #EFF6FF);
 }
 
 /* 展开动画（300ms，利落不拖沓）*/
@@ -653,12 +655,12 @@ b, strong { color: var(--ink); font-weight: 600; }
 .card-actions { margin-top: var(--sp-4); padding-top: var(--sp-3); border-top: 1px dashed #E2E8F0; display: flex; gap: var(--sp-2); }
 .prd-export-btn {
   display: inline-flex; align-items: center; gap: 6px;
-  font-size: 13px; font-weight: 600;
-  color: var(--accent, #2563EB); background: var(--accent-soft, #EFF6FF);
+  font-size: 13px; font-weight: 700;
+  color: #fff; background: var(--accent, #2563EB);
   border: 1px solid var(--accent, #2563EB); border-radius: 8px;
-  padding: 8px 14px; cursor: pointer; transition: background .2s, color .2s;
+  padding: 9px 16px; cursor: pointer; transition: background .2s, transform .2s;
 }
-.prd-export-btn:hover { background: var(--accent, #2563EB); color: #fff; }
+.prd-export-btn:hover { background: #1D4ED8; border-color: #1D4ED8; transform: translateY(-1px); }
 .prd-export-btn svg { width: 16px; height: 16px; }
 
 
