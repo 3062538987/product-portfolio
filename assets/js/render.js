@@ -152,7 +152,8 @@
         p.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</span>' : '';
       var metrics = (p.metrics && p.metrics.length) ? '<span class="card-metrics" aria-label="关键指标">' +
         p.metrics.map(function (m) { return '<span class="mini-metric"><b>' + esc(m.b) + '</b><i>' + esc(m.i) + '</i></span>'; }).join('') + '</span>' : '';
-      var bodyInner = renderModules(p.modules) + renderDeliverables(p.deliverables);
+      var actions = '<div class="card-actions"><button type="button" class="prd-export-btn" data-prd="' + esc(id) + '" data-track="export_prd">' + DOC_ICON + '导出 PRD（PDF）</button></div>';
+      var bodyInner = renderModules(p.modules) + renderDeliverables(p.deliverables) + actions;
       // 第一个项目默认展开：让 HR 一进来就看到完整 STAR 结构，并意识到卡片可展开
       var open = idx === 0;
       html += '<article class="project-card' + (open ? ' is-open' : '') + '" data-kind="project" data-reveal' + style + '>' +
@@ -301,6 +302,73 @@
     }
     r.innerHTML = html;
   }
+
+  /* ---------------- 生成单项目 PRD 文档（打印用） ---------------- */
+  function renderPRD(p) {
+    var r = $('prdPrint'); if (!r || !p) return false;
+    var html = '<div class="prd-doc">';
+    html += '<h1>' + esc(p.name || '') + '</h1>';
+    if (p.tags && p.tags.length) html += '<p class="prd-tags">' + p.tags.map(esc).join(' · ') + '</p>';
+    if (p.summary) html += '<p class="prd-summary">' + esc(p.summary) + '</p>';
+    if (p.metrics && p.metrics.length) {
+      html += '<p class="prd-metrics">' + p.metrics.map(function (m) {
+        return '<b>' + esc(m.b) + '</b> ' + esc(m.i);
+      }).join(' &nbsp;|&nbsp; ') + '</p>';
+    }
+    (p.modules || []).forEach(function (m) {
+      html += '<h2>' + esc(m.no || '') + '. ' + esc(m.title || '') + '</h2>';
+      (m.paragraphs || []).forEach(function (t) { if (t) html += '<p>' + md(t) + '</p>'; });
+      var blts = (m.bullets || []).filter(Boolean);
+      if (blts.length) {
+        html += '<ul>';
+        blts.forEach(function (b) { html += '<li>' + md(b) + '</li>'; });
+        html += '</ul>';
+      }
+      if (m.table && m.table.head && m.table.rows && m.table.rows.length) {
+        html += '<table class="prd-table"><thead><tr>';
+        m.table.head.forEach(function (h) { html += '<th>' + esc(h) + '</th>'; });
+        html += '</tr></thead><tbody>';
+        m.table.rows.forEach(function (row) {
+          html += '<tr>'; row.forEach(function (c) { html += '<td>' + esc(c) + '</td>'; }); html += '</tr>';
+        });
+        html += '</tbody></table>';
+      }
+      if (m.note) html += '<p class="prd-note">' + md(m.note) + '</p>';
+    });
+    if (p.deliverables && p.deliverables.length) {
+      html += '<h2>相关交付物</h2><ul>';
+      p.deliverables.forEach(function (d) { html += '<li>' + esc(d.name || '') + '</li>'; });
+      html += '</ul>';
+    }
+    var nm = (D.hero && D.hero.name) || (D.site && D.site.name) || '';
+    var c = D.contact || {};
+    var foot = esc(nm);
+    if (c.email) foot += ' · ' + esc(c.email);
+    if (c.wechat) foot += ' · 微信 ' + esc(c.wechat);
+    html += '<hr class="prd-hr"><p class="prd-foot">' + foot + '</p>';
+    html += '</div>';
+    r.innerHTML = html;
+    return true;
+  }
+
+  // 供 main.js 的 [data-prd] 点击调用：生成 PRD → 进入打印模式 → 打印 → 清理
+  window.buildPRD = function (pid) {
+    var list = D.projects || [];
+    var p = null;
+    for (var i = 0; i < list.length; i++) {
+      if ((list[i].id || ('proj' + i)) === pid) { p = list[i]; break; }
+    }
+    if (!p || !renderPRD(p)) return;
+    document.body.classList.add('print-prd');
+    var done = function () {
+      document.body.classList.remove('print-prd');
+      window.removeEventListener('afterprint', done);
+    };
+    window.addEventListener('afterprint', done);
+    window.print();
+    // 兜底：部分浏览器 afterprint 不触发（如打印对话框被取消）
+    setTimeout(function () { if (document.body.classList.contains('print-prd')) done(); }, 2000);
+  };
 
   /* ---------------- 执行 ---------------- */
   function init() {

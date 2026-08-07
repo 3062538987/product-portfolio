@@ -604,25 +604,62 @@ b, strong { color: var(--ink); font-weight: 600; }
 
 
 /* ============================================================
-   PRINT — 生成干净简历 PDF（修复中文方框/乱码）
+   PRINT — 干净 PDF（修复中文方框/乱码）
+   两种打印模式：
+   - 默认：打印简历（#resumeOnly）
+   - body.print-prd：打印单个项目 PRD（#prdPrint）
    ============================================================ */
-.resume-only { display: none; }
+.resume-only, .prd-print { display: none; }
 @media print {
   /* 强制中文友好字体，杜绝 Sora(纯拉丁) 导致的方框/乱码 */
   :root { --font-display: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; }
   body, body * { font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif !important; }
 
-  /* 只打印由数据生成的干净简历，隐藏交互式页面 */
-  body > *:not(.resume-only) { display: none !important; }
-  .resume-only { display: block !important; color: #000; background: #fff; padding: 0; }
-  .resume-only h1 { font-size: 26px; margin: 0 0 4px; font-weight: 700; }
-  .resume-only h1 + p { font-size: 14px; color: #333; margin-bottom: 2px; }
-  .resume-only h2 { font-size: 16px; margin: 16px 0 6px; padding-bottom: 3px; border-bottom: 1px solid #ccc; font-weight: 700; }
-  .resume-only p { font-size: 12.5px; line-height: 1.6; margin: 4px 0; }
-  .resume-table { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: 11.5px; }
-  .resume-table th, .resume-table td { border: 1px solid #ccc; padding: 4px 8px; text-align: left; }
-  .resume-table th { background: #f3f4f6; }
+  /* —— 默认：打印简历 —— */
+  body:not(.print-prd) > *:not(.resume-only) { display: none !important; }
+  body:not(.print-prd) .resume-only { display: block !important; color: #000; background: #fff; padding: 0; }
+  body:not(.print-prd) .resume-only h1 { font-size: 26px; margin: 0 0 4px; font-weight: 700; }
+  body:not(.print-prd) .resume-only h1 + p { font-size: 14px; color: #333; margin-bottom: 2px; }
+  body:not(.print-prd) .resume-only h2 { font-size: 16px; margin: 16px 0 6px; padding-bottom: 3px; border-bottom: 1px solid #ccc; font-weight: 700; }
+  body:not(.print-prd) .resume-only p { font-size: 12.5px; line-height: 1.6; margin: 4px 0; }
+  body:not(.print-prd) .resume-table { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: 11.5px; }
+  body:not(.print-prd) .resume-table th, body:not(.print-prd) .resume-table td { border: 1px solid #ccc; padding: 4px 8px; text-align: left; }
+  body:not(.print-prd) .resume-table th { background: #f3f4f6; }
+
+  /* —— PRD 打印模式（body.print-prd） —— */
+  body.print-prd > *:not(.prd-print) { display: none !important; }
+  body.print-prd .prd-print { display: block !important; color: #000; background: #fff; padding: 0; }
+  body.print-prd .prd-doc { max-width: 760px; margin: 0 auto; }
+  body.print-prd .prd-doc h1 { font-size: 24px; margin: 0 0 6px; font-weight: 700; }
+  body.print-prd .prd-tags { font-size: 12px; color: #2563EB; margin: 0 0 8px; }
+  body.print-prd .prd-summary { font-size: 13px; line-height: 1.7; margin: 0 0 8px; }
+  body.print-prd .prd-metrics { font-size: 12px; color: #333; margin: 0 0 10px; }
+  body.print-prd .prd-metrics b { color: #000; }
+  body.print-prd .prd-doc h2 { font-size: 15px; margin: 14px 0 5px; padding-bottom: 3px; border-bottom: 2px solid #2563EB; font-weight: 700; }
+  body.print-prd .prd-doc p { font-size: 12px; line-height: 1.65; margin: 4px 0; }
+  body.print-prd .prd-doc ul { margin: 4px 0; padding-left: 18px; }
+  body.print-prd .prd-doc li { font-size: 12px; line-height: 1.6; margin: 2px 0; }
+  body.print-prd .prd-table { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: 11px; }
+  body.print-prd .prd-table th, body.print-prd .prd-table td { border: 1px solid #ccc; padding: 4px 8px; text-align: left; }
+  body.print-prd .prd-table th { background: #EFF6FF; }
+  body.print-prd .prd-note { background: #F8FAFC; border-left: 3px solid #2563EB; padding: 6px 10px; font-size: 11.5px; color: #334155; margin: 6px 0; }
+  body.print-prd .prd-hr { border: none; border-top: 1px solid #ccc; margin: 14px 0 6px; }
+  body.print-prd .prd-foot { font-size: 11px; color: #64748B; }
 }
+
+/* ============================================================
+   PRD 导出按钮（屏幕端，项目卡片展开后可见）
+   ============================================================ */
+.card-actions { margin-top: var(--sp-4); padding-top: var(--sp-3); border-top: 1px dashed #E2E8F0; display: flex; gap: var(--sp-2); }
+.prd-export-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600;
+  color: var(--accent, #2563EB); background: var(--accent-soft, #EFF6FF);
+  border: 1px solid var(--accent, #2563EB); border-radius: 8px;
+  padding: 8px 14px; cursor: pointer; transition: background .2s, color .2s;
+}
+.prd-export-btn:hover { background: var(--accent, #2563EB); color: #fff; }
+.prd-export-btn svg { width: 16px; height: 16px; }
 
 
 /* ============================================================

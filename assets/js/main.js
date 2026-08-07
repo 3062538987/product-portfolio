@@ -51,6 +51,13 @@
     if (t && window.track) window.track(t.getAttribute('data-track'));
   });
 
+  /* ---------- 0.6 导出 PRD（按项目生成 PDF） ---------- */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-prd]');
+    if (!b) return;
+    if (window.buildPRD) window.buildPRD(b.getAttribute('data-prd'));
+  });
+
   /* ---------- 2. 导航栏滚动阴影 ---------- */
   function updateNavShadow() {
     if (!nav) return;
