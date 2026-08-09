@@ -22,8 +22,14 @@
   window.track = function (name, value) {
     try {
       if (window.goatcounter) {
+        var path = 'event:' + name;
+        // 数值型指标可能为 0（如 download_after:0 下载前没看项目、session_duration:0 极短会话），
+        // 必须显式保留 ':0'，否则被当 falsy 丢弃、丢失数据
+        if (value !== undefined && value !== null && value !== '') {
+          path += ':' + value;
+        }
         window.goatcounter.count({
-          path: 'event:' + name + (value ? (':' + value) : ''),
+          path: path,
           title: name + (value ? (' · ' + value) : '')
         });
       }
