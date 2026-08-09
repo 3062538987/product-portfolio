@@ -372,13 +372,15 @@ b, strong { color: var(--ink); font-weight: 600; }
 
 .card-toggle {
   width: 100%;
-  display: flex; align-items: flex-start; gap: var(--sp-6);
+  display: flex; flex-direction: column; align-items: stretch; gap: var(--sp-4);
   padding: var(--sp-6); text-align: left; background: transparent;
   border-radius: 14px; cursor: pointer;
   transition: background var(--t-fast), box-shadow var(--t-fast);
 }
 .card-toggle:hover { background: var(--accent-soft, #EFF6FF); box-shadow: inset 0 0 0 1px var(--accent-100, #DBEAFE); }
-.card-toggle-main { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card-toggle-main { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+/* 指标 + 展开按钮放在摘要下方一行：摘要不再被挤成窄列 */
+.card-toggle-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; width: 100%; }
 
 .card-name {
   font-family: var(--font-display);
@@ -392,7 +394,7 @@ b, strong { color: var(--ink); font-weight: 600; }
   font-size: 12px; font-weight: 600; border-radius: var(--r-pill);
 }
 
-.card-metrics { display: flex; gap: var(--sp-4); flex-shrink: 0; align-self: center; }
+.card-metrics { display: flex; gap: var(--sp-4); flex-shrink: 0; }
 .mini-metric { display: flex; flex-direction: column; align-items: center; min-width: 70px; background: var(--accent-soft, var(--brand-50)); border-radius: var(--r-md); padding: 10px 12px; }
 .mini-metric b {
   font-family: var(--font-display);
@@ -719,8 +721,7 @@ b, strong { color: var(--ink); font-weight: 600; }
 
   /* 项目全宽堆叠 */
   .projects-grid { grid-template-columns: 1fr; }
-  .card-toggle { flex-direction: column; gap: var(--sp-4); }
-  .card-metrics { width: 100%; justify-content: flex-start; gap: var(--sp-6); }
+  /* .card-toggle 基础已是垂直堆叠，移动端无需覆盖 */
 
   /* 关于 */
   .about-grid { grid-template-columns: 1fr; }

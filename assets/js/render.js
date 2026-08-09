@@ -156,11 +156,13 @@
       var bodyInner = renderModules(p.modules) + renderDeliverables(p.deliverables) + actions;
       // 所有项目默认收起：公平对比各项目展开数据（避免首卡被默认展开污染），靠醒目的「展开」按钮引导点击
       var open = false;
+      // footer 把指标和「展开」按钮放在同一行，避免长摘要被挤成窄列
+      var footer = '<span class="card-toggle-footer">' + metrics + '<span class="card-chevron" aria-hidden="true">' + (open ? '收起' : '展开') + '</span></span>';
       html += '<article class="project-card' + (open ? ' is-open' : '') + '" data-kind="project" data-reveal' + style + '>' +
         '<button type="button" class="card-toggle" aria-expanded="' + (open ? 'true' : 'false') + '" aria-controls="' + id + '-body" id="' + id + '-toggle">' +
         '<span class="card-toggle-main"><span class="card-name">' + esc(p.name || '') + '</span>' +
         (p.summary ? '<span class="card-summary">' + esc(p.summary) + '</span>' : '') + tags + '</span>' +
-        metrics + '<span class="card-chevron" aria-hidden="true">' + (open ? '收起' : '展开') + '</span></button>' +
+        footer + '</button>' +
         '<div class="card-body" id="' + id + '-body" role="region" aria-labelledby="' + id + '-toggle"' + (open ? '' : ' hidden') + '>' +
         '<div class="card-body-inner">' + bodyInner + '</div></div></article>';
     });
