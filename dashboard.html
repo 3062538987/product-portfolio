@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>作品集数据看板 · 江宇芳</title>
   <link rel="icon" type="image/png" href="assets/img/favicon.png" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260809T201830" />
-  <link rel="stylesheet" href="assets/css/dashboard.css?v=20260809T201830" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260809T212512" />
+  <link rel="stylesheet" href="assets/css/dashboard.css?v=20260809T212512" />
 </head>
 <body>
   <div class="dash">
@@ -38,9 +38,9 @@
         <div class="dash-ctrl">
           <label for="sourceSelect">数据源</label>
           <select id="sourceSelect" class="dash-select">
-            <option value="mock" selected>演示数据</option>
+            <option value="mock">演示数据</option>
             <option value="live">实时（GoatCounter）</option>
-            <option value="file">本地导出 JSON</option>
+            <option value="file" selected>本地导出 JSON</option>
           </select>
         </div>
 
@@ -135,11 +135,11 @@
     </main>
 
     <p class="dash-footnote">
-      说明：当前为<b>框架演示数据</b>，看板结构与真实埋点完全对齐（PV/UV、项目查看、简历下载、面试官打分、滚动深度等）。接入真实数据时，在右上角「数据源」切换为「实时」并粘贴 GoatCounter 只读 key（或选「本地导出 JSON」放一份导出文件），无需改动任何图表代码。key 仅存于本机浏览器，公开部署不会泄露。
+      说明：看板默认读取<b>本地导出的 GoatCounter 实时快照</b>（由 <code>.workbuddy/export_dashboard_json.py</code> 在本机拉取并随站点发布，只读 key 不进公开仓库）。随时刷新真实数据：重跑该脚本后部署即可。需要临时看最新数字时，右上角「数据源」可切换为「实时」并在浏览器粘贴只读 key，或切「演示」看框架占位。UV 在免费套餐下 API 不返回，以「—」显示，改用去重互动人数代理。
     </p>
   </div>
 
-  <script src="assets/js/dashboard-data.js?v=20260809T201830"></script>
-  <script src="assets/js/dashboard.js?v=20260809T201830" defer></script>
+  <script src="assets/js/dashboard-data.js?v=20260809T212512"></script>
+  <script src="assets/js/dashboard.js?v=20260809T212512" defer></script>
 </body>
 </html>

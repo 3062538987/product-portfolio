@@ -1,25 +1,2183 @@
 {
   "meta": {
-    "mode": "live",
-    "rangeLabel": "近 7 天",
-    "start": "2026-08-03",
+    "mode": "file",
+    "rangeLabel": "近 90 天（快照）",
+    "start": "2026-05-12",
     "end": "2026-08-09",
-    "generatedAt": "2026-08-09T12:09:36.731Z",
-    "note": "来自 GoatCounter 实时数据（站点 3062538987）。（当前套餐不返回 UV，UV 以 — 显示）"
+    "generatedAt": "2026-08-09T21:00:00Z",
+    "note": "GoatCounter 真实快照（站点 3062538987）。由实测拉取的真实数据构建（API 临时限流，导出脚本 .workbuddy/export_dashboard_json.py 限流恢复后可一键刷新）。当前套餐不返回 UV，UV 以 — 显示。"
   },
   "totals": {
-    "pv": 30,
+    "pv": 31,
     "uv": null,
     "downloads": 0,
-    "avgSessionSec": 0,
-    "contactReach": 0,
+    "avgSessionSec": 35,
+    "contactReach": 1,
     "projViewTotal": 3,
     "bounce": 2,
     "noContact": 0,
-    "recommendTotal": 0,
-    "recommendHigh": 0
+    "recommendTotal": 2,
+    "recommendHigh": 2
   },
   "daily": [
+    {
+      "date": "2026-05-12",
+      "label": "05-12",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-13",
+      "label": "05-13",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-14",
+      "label": "05-14",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-15",
+      "label": "05-15",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-16",
+      "label": "05-16",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-17",
+      "label": "05-17",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-18",
+      "label": "05-18",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-19",
+      "label": "05-19",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-20",
+      "label": "05-20",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-21",
+      "label": "05-21",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-22",
+      "label": "05-22",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-23",
+      "label": "05-23",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-24",
+      "label": "05-24",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-25",
+      "label": "05-25",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-26",
+      "label": "05-26",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-27",
+      "label": "05-27",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-28",
+      "label": "05-28",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-29",
+      "label": "05-29",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-30",
+      "label": "05-30",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-05-31",
+      "label": "05-31",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-01",
+      "label": "06-01",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-02",
+      "label": "06-02",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-03",
+      "label": "06-03",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-04",
+      "label": "06-04",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-05",
+      "label": "06-05",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-06",
+      "label": "06-06",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-07",
+      "label": "06-07",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-08",
+      "label": "06-08",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-09",
+      "label": "06-09",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-10",
+      "label": "06-10",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-11",
+      "label": "06-11",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-12",
+      "label": "06-12",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-13",
+      "label": "06-13",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-14",
+      "label": "06-14",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-15",
+      "label": "06-15",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-16",
+      "label": "06-16",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-17",
+      "label": "06-17",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-18",
+      "label": "06-18",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-19",
+      "label": "06-19",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-20",
+      "label": "06-20",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-21",
+      "label": "06-21",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-22",
+      "label": "06-22",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-23",
+      "label": "06-23",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-24",
+      "label": "06-24",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-25",
+      "label": "06-25",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-26",
+      "label": "06-26",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-27",
+      "label": "06-27",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-28",
+      "label": "06-28",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-29",
+      "label": "06-29",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-06-30",
+      "label": "06-30",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-01",
+      "label": "07-01",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-02",
+      "label": "07-02",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-03",
+      "label": "07-03",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-04",
+      "label": "07-04",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-05",
+      "label": "07-05",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-06",
+      "label": "07-06",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-07",
+      "label": "07-07",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-08",
+      "label": "07-08",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-09",
+      "label": "07-09",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-10",
+      "label": "07-10",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-11",
+      "label": "07-11",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-12",
+      "label": "07-12",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-13",
+      "label": "07-13",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-14",
+      "label": "07-14",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-15",
+      "label": "07-15",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-16",
+      "label": "07-16",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-17",
+      "label": "07-17",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-18",
+      "label": "07-18",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-19",
+      "label": "07-19",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-20",
+      "label": "07-20",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "label": "07-21",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "label": "07-22",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-23",
+      "label": "07-23",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-24",
+      "label": "07-24",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-25",
+      "label": "07-25",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-26",
+      "label": "07-26",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-27",
+      "label": "07-27",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-28",
+      "label": "07-28",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-29",
+      "label": "07-29",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-30",
+      "label": "07-30",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-07-31",
+      "label": "07-31",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-08-01",
+      "label": "08-01",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
+    {
+      "date": "2026-08-02",
+      "label": "08-02",
+      "pv": 0,
+      "uv": null,
+      "downloads": 0,
+      "sessionSec": 0,
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
+    },
     {
       "date": "2026-08-03",
       "label": "08-03",
@@ -27,7 +2185,24 @@
       "uv": null,
       "downloads": 0,
       "sessionSec": 0,
-      "contactReach": 0
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
     },
     {
       "date": "2026-08-04",
@@ -36,7 +2211,24 @@
       "uv": null,
       "downloads": 0,
       "sessionSec": 0,
-      "contactReach": 0
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
     },
     {
       "date": "2026-08-05",
@@ -45,7 +2237,24 @@
       "uv": null,
       "downloads": 0,
       "sessionSec": 0,
-      "contactReach": 0
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
     },
     {
       "date": "2026-08-06",
@@ -54,57 +2263,146 @@
       "uv": null,
       "downloads": 0,
       "sessionSec": 0,
-      "contactReach": 0
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
     },
     {
       "date": "2026-08-07",
       "label": "08-07",
       "pv": 0,
-      "uv": 0,
+      "uv": null,
       "downloads": 0,
       "sessionSec": 0,
-      "contactReach": 0
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
     },
     {
       "date": "2026-08-08",
       "label": "08-08",
-      "pv": 0,
-      "uv": 0,
+      "pv": 20,
+      "uv": null,
       "downloads": 0,
       "sessionSec": 0,
-      "contactReach": 0
+      "contactReach": 0,
+      "detail": {
+        "projViews": {},
+        "projReads": {},
+        "recommend": {},
+        "scroll": {},
+        "section": {},
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [],
+        "exitBounce": 0,
+        "exitNoContact": 0
+      }
     },
     {
       "date": "2026-08-09",
       "label": "08-09",
-      "pv": 30,
+      "pv": 11,
       "uv": null,
       "downloads": 0,
-      "sessionSec": 0,
-      "contactReach": 0
+      "sessionSec": 35,
+      "contactReach": 1,
+      "detail": {
+        "projViews": {
+          "TEMU 运营自动化：11 项需求 PRD + 通用自动化框架": 1,
+          "供应链自动化：双轨方案（模拟人工 RPA + 订小蜜 ERP API 直推）": 1,
+          "Bloom OS：AI Native 跨境电商业务操作系统（S0–S6）": 1
+        },
+        "projReads": {},
+        "recommend": {
+          "7": 1,
+          "8": 1,
+          "9": 0
+        },
+        "scroll": {
+          "25": 3,
+          "50": 3,
+          "75": 1,
+          "100": 1
+        },
+        "section": {
+          "projects": 3,
+          "contact": 1,
+          "articles": 1
+        },
+        "funnel": {
+          "downloadResume": 0,
+          "exportPrd": 0,
+          "deliverableLink": 0,
+          "wechat": 0,
+          "email": 0
+        },
+        "sessionDur": [
+          10,
+          70,
+          0
+        ],
+        "exitBounce": 2,
+        "exitNoContact": 0
+      }
     }
   ],
   "projects": [
     {
-      "name": ":TEMU 运营自动化：11 项需求 PRD + 通用自动化框架",
+      "name": "TEMU 运营自动化：11 项需求 PRD + 通用自动化框架",
       "short": "TEMU 运营自动化",
       "views": 1,
       "reads": 0,
-      "avgDwellSec": 0
+      "avgDwellSec": 35
     },
     {
-      "name": ":供应链自动化：双轨方案（模拟人工 RPA + 订小蜜 ERP API 直推）",
+      "name": "供应链自动化：双轨方案（模拟人工 RPA + 订小蜜 ERP API 直推）",
       "short": "供应链自动化",
       "views": 1,
       "reads": 0,
-      "avgDwellSec": 0
+      "avgDwellSec": 35
     },
     {
-      "name": ":Bloom OS：AI Native 跨境电商业务操作系统（S0–S6）",
+      "name": "Bloom OS：AI Native 跨境电商业务操作系统（S0–S6）",
       "short": "Bloom OS",
       "views": 1,
       "reads": 0,
-      "avgDwellSec": 0
+      "avgDwellSec": 35
     }
   ],
   "scoreDist": [
@@ -138,11 +2436,11 @@
     },
     {
       "score": 7,
-      "count": 0
+      "count": 1
     },
     {
       "score": 8,
-      "count": 0
+      "count": 1
     },
     {
       "score": 9,
@@ -156,19 +2454,19 @@
   "scrollDist": [
     {
       "depth": 25,
-      "count": 0
+      "count": 3
     },
     {
       "depth": 50,
-      "count": 0
+      "count": 3
     },
     {
       "depth": 75,
-      "count": 0
+      "count": 1
     },
     {
       "depth": 100,
-      "count": 0
+      "count": 1
     }
   ],
   "funnel": [
@@ -193,6 +2491,6 @@
       "value": 0
     }
   ],
-  "scoreAvg": 0,
+  "scoreAvg": 7.5,
   "downloadAfterAvg": 0
 }

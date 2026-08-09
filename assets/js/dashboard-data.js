@@ -4,10 +4,11 @@
    设计目标：
    - 现在：默认返回「演示数据（框架）」，看板即可可视化运行。
    - 将来：把真实埋点接进来，只需切换 config.mode，无需改 UI。
-   三种数据源（config.mode）：
-     1) 'mock'  —— 演示数据（默认，框架期使用）
+   三种数据源（config.mode，默认 'file'）：
+     1) 'file'  —— 读取本地导出的 JSON 快照（由 .workbuddy/export_dashboard_json.py 生成，
+                    key 留在本地不进仓库，数字随站点发布；看板按所选时间范围切片重算）
      2) 'live'  —— 从 GoatCounter 实时拉取（在页面粘贴只读 key，存 localStorage，不进仓库）
-     3) 'file'  —— 读取本地导出的 JSON（把导出数据按 get() 的返回结构存到 config.dataFile）
+     3) 'mock'  —— 演示数据（框架占位，文件缺失/范围无数据时回退）
    真实埋点事件命名（与 site 现有 analytics 对齐）：
      event:project_view:<项目名> / event:project_read:<项目名> /
      event:project_dwell:<项目名>:<秒> / event:download_resume /
@@ -21,8 +22,8 @@ window.DashboardData = (function () {
   'use strict';
 
   var CONFIG = {
-    // 'mock' | 'live' | 'file'
-    mode: 'mock',
+    // 'file' | 'live' | 'mock'  —— 默认 file：读取本地导出快照，无需每次粘贴 key
+    mode: 'file',
     siteCode: '3062538987',
     // file 模式：导出数据（结构同 get() 返回值）放置路径
     dataFile: 'assets/js/dashboard-data.json',
@@ -162,11 +163,11 @@ window.DashboardData = (function () {
       if (rest.indexOf('project_view:') === 0) m.projView[rest.slice(12)] = (m.projView[rest.slice(12)] || 0) + c;
       else if (rest.indexOf('project_read:') === 0) m.projRead[rest.slice(12)] = (m.projRead[rest.slice(12)] || 0) + c;
       else if (rest.indexOf('project_dwell:') === 0) { var t = rest.slice(13); var k = t.lastIndexOf(':'); if (k > 0) { var s = parseInt(t.slice(k + 1), 10); if (!isNaN(s)) m.projDwell.push(s); } }
-      else if (rest.indexOf('download_after:') === 0) { var da = parseInt(rest.slice(13), 10); if (!isNaN(da)) m.downloadAfter.push(da); }
+      else if (rest.indexOf('download_after:') === 0) { var da = parseInt(rest.slice(14), 10); if (!isNaN(da)) m.downloadAfter.push(da); } // 'download_after:' = 14 字符
       else if (rest.indexOf('session_duration:') === 0) { var sd = parseInt(rest.slice(16), 10); if (!isNaN(sd)) m.sessionDur.push(sd); }
       else if (rest.indexOf('resume_recommend:') === 0) { var r = parseInt(rest.slice(16), 10); if (!isNaN(r)) m.recommend[r] = (m.recommend[r] || 0) + c; }
       else if (rest.indexOf('section_view:') === 0) m.section[rest.slice(12)] = (m.section[rest.slice(12)] || 0) + c;
-      else if (rest.indexOf('scroll_depth:') === 0) m.scroll[rest.slice(12)] = (m.scroll[rest.slice(12)] || 0) + c;
+      else if (rest.indexOf('scroll_depth:') === 0) m.scroll[rest.slice(13)] = (m.scroll[rest.slice(13)] || 0) + c; // 'scroll_depth:' = 13 字符
       else if (rest.indexOf('hero_cta:') === 0) m.heroCta[rest.slice(9)] = (m.heroCta[rest.slice(9)] || 0) + c;
       else if (rest === 'download_resume') m.downloadResume += c;
       else if (rest === 'exit_bounce') m.exitBounce += c;
@@ -217,7 +218,12 @@ window.DashboardData = (function () {
       ]).then(function (res) {
         var total = res[0] || {};
         var hits = (res[1] && res[1].hits) || [];
-        return { day: day, label: day.slice(5), pv: total.total || 0, uv: (total.total_unique == null ? null : total.total_unique), agg: aggregateHits(hits) };
+        // PV 在 stats[].daily（按 UTC 日分桶），单日查询会多返回前一天的桶；
+        // 精确匹配当天 day 取该桶 daily，避免把相邻两天累加进同一天。
+        var pv = 0, matched = false;
+        (total.stats || []).forEach(function (s) { if (s.day === day) { pv = s.daily || 0; matched = true; } });
+        if (!matched) (total.stats || []).forEach(function (s) { pv += (s.daily || 0); });
+        return { day: day, label: day.slice(5), pv: pv, uv: (total.total_unique == null ? null : total.total_unique), agg: aggregateHits(hits) };
       }).catch(function (e) { return { day: day, label: day.slice(5), pv: 0, uv: 0, agg: aggregateHits([]), error: e.message }; });
     }).then(function (dayResults) { return buildFromDayResults(dayResults, startStr, endStr); });
   }
@@ -287,11 +293,55 @@ window.DashboardData = (function () {
 
   function avg(arr) { return arr.length ? Math.round(sum(arr) / arr.length) : 0; }
 
-  /* ---------------- 本地导出 JSON ---------------- */
-  function fetchFile() {
+  /* ---------------- 本地导出 JSON（快照，默认） ----------------
+     快照里 daily[] 每天带 detail（项目查看/打分/滚动/转化/停留 等逐日明细），
+     看板按所选时间范围切片后，复用 buildFromDayResults 重算聚合，保证与实时口径一致。 */
+  function dayToAggResult(d) {
+    var dt = d.detail || {};
+    var f = dt.funnel || {};
+    return {
+      day: d.date, label: d.label, pv: d.pv, uv: d.uv,
+      agg: {
+        projView: dt.projViews || {},
+        projRead: dt.projReads || {},
+        projDwell: [],                       // 快照不存逐条停留，按日均值近似（见 buildFromDayResults）
+        downloadAfter: [],
+        sessionDur: dt.sessionDur || [],
+        section: dt.section || {},
+        scroll: dt.scroll || {},
+        heroCta: dt.heroCta || {},
+        recommend: dt.recommend || {},
+        downloadResume: f.downloadResume || 0,
+        exitBounce: dt.exitBounce || 0,
+        exitNoContact: dt.exitNoContact || 0,
+        email: f.email || 0,
+        wechat: f.wechat || 0,
+        exportPrd: f.exportPrd || 0,
+        deliverableLink: f.deliverableLink || 0
+      }
+    };
+  }
+
+  function loadSnapshot(startStr, endStr) {
     return fetch(CONFIG.dataFile, { cache: 'no-store' }).then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
+    }).then(function (snap) {
+      var sliced = (snap.daily || []).filter(function (d) {
+        return d.date >= startStr && d.date <= endStr;
+      });
+      if (!sliced.length) {
+        var mock = buildMock(startStr, endStr);
+        mock.meta.note = '所选时间范围在快照中无数据（快照覆盖 ' + (snap.meta && snap.meta.start) +
+          ' ~ ' + (snap.meta && snap.meta.end) + '）。可放宽范围，或重跑 .workbuddy/export_dashboard_json.py 刷新快照。已回退演示数据。';
+        mock.meta.mode = 'mock';
+        return mock;
+      }
+      var model = buildFromDayResults(sliced.map(dayToAggResult), startStr, endStr);
+      model.meta.mode = 'file';
+      model.meta.rangeLabel = rangeLabel(sliced.length);
+      model.meta.note = (snap.meta && snap.meta.note) || '';
+      return model;
     });
   }
 
@@ -309,9 +359,10 @@ window.DashboardData = (function () {
       });
     }
     if (CONFIG.mode === 'file') {
-      return fetchFile().catch(function (e) {
+      return loadSnapshot(startStr, endStr).catch(function (e) {
         var mock = buildMock(startStr, endStr);
-        mock.meta.note = '本地数据文件读取失败（' + (e && e.message || e) + '），已回退演示数据。';
+        mock.meta.note = '本地快照读取失败（' + (e && e.message || e) + '）。请确认 site/assets/js/dashboard-data.json 存在，' +
+          '或重跑 .workbuddy/export_dashboard_json.py 生成。已回退演示数据。';
         mock.meta.mode = 'mock';
         return mock;
       });

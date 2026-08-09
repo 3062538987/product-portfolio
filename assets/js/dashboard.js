@@ -108,14 +108,24 @@
     $('#metaRange').textContent = meta.rangeLabel + '（' + meta.start + ' ~ ' + meta.end + '）';
     $('#metaNote').textContent = meta.note || '';
     var badge = $('#modeBadge');
-    badge.textContent = meta.mode === 'live' ? '实时' : '演示';
-    badge.className = 'dash-badge ' + (meta.mode === 'live' ? 'dash-badge--live' : 'dash-badge--mock');
+    if (meta.mode === 'live') { badge.textContent = '实时'; badge.className = 'dash-badge dash-badge--live'; }
+    else if (meta.mode === 'file') { badge.textContent = '快照'; badge.className = 'dash-badge dash-badge--file'; }
+    else { badge.textContent = '演示'; badge.className = 'dash-badge dash-badge--mock'; }
   }
 
   function renderKPIs(t, m) {
+    var days = Math.max(1, m.daily.length);
+    // UV 不可用（免费套餐 API 不返回 total_unique）时，用去重事件 project_view 作「人数」代理
+    var uvCard;
+    if (t.uv != null) {
+      uvCard = { label: '独立访客 UV', value: fmt(t.uv), sub: '每日均值 ' + fmt(Math.round(t.uv / days)) };
+    } else {
+      var proxy = t.projViewTotal || 0; // project_view 按会话去重 ≈ 独立互动人数
+      uvCard = { label: '去重互动人数', value: fmt(proxy), sub: '事件去重代理（本套餐无 UV）' };
+    }
     var cards = [
-      { k: 'pv', label: '页面访问 PV', value: fmt(t.pv), sub: '每日均值 ' + fmt(Math.round(t.pv / Math.max(1, m.daily.length))) },
-      { k: 'uv', label: '独立访客 UV', value: fmt(t.uv), sub: t.uv != null ? '每日均值 ' + fmt(Math.round(t.uv / Math.max(1, m.daily.length))) : '本套餐不返回 UV' },
+      { k: 'pv', label: '页面访问 PV', value: fmt(t.pv), sub: '每日均值 ' + fmt(Math.round(t.pv / days)) },
+      uvCard,
       { k: 'dl', label: '简历下载', value: fmt(t.downloads), sub: '联系区到达 ' + fmt(t.contactReach) },
       { k: 'sess', label: '平均停留', value: fmtSec(t.avgSessionSec), sub: '早退 ' + fmt(t.bounce) + ' · 未到联系 ' + fmt(t.noContact) }
     ];

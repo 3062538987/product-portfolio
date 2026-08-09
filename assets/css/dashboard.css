@@ -54,6 +54,7 @@
 }
 .dash-badge--mock { background: var(--brand-50); color: var(--brand-700); }
 .dash-badge--live { background: #ECFDF5; color: var(--emerald); }
+.dash-badge--file { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
 
 .dash-error {
   background: #FEF2F2; border: 1px solid #FECACA; color: #B91C1C;
