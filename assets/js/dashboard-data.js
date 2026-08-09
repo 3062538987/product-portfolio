@@ -156,7 +156,7 @@ window.DashboardData = (function () {
       exportPrd: 0, deliverableLink: 0
     };
     (hits || []).forEach(function (h) {
-      var p = h.path || '', c = h.count || 0;
+      var p = (h.path || '').replace(/^\//, ''), c = h.count || 0; // GoatCounter 事件路径带前导斜杠，需去掉
       if (p.indexOf('event:') !== 0) return;
       var rest = p.slice(6);
       if (rest.indexOf('project_view:') === 0) m.projView[rest.slice(12)] = (m.projView[rest.slice(12)] || 0) + c;
@@ -217,13 +217,13 @@ window.DashboardData = (function () {
       ]).then(function (res) {
         var total = res[0] || {};
         var hits = (res[1] && res[1].hits) || [];
-        return { day: day, label: day.slice(5), pv: total.total || 0, uv: total.total_unique || 0, agg: aggregateHits(hits) };
+        return { day: day, label: day.slice(5), pv: total.total || 0, uv: (total.total_unique == null ? null : total.total_unique), agg: aggregateHits(hits) };
       }).catch(function (e) { return { day: day, label: day.slice(5), pv: 0, uv: 0, agg: aggregateHits([]), error: e.message }; });
     }).then(function (dayResults) { return buildFromDayResults(dayResults, startStr, endStr); });
   }
 
   function buildFromDayResults(dayResults, startStr, endStr) {
-    var daily = [], pvTot = 0, uvTot = 0, contactTot = 0, sessAll = [];
+    var daily = [], pvTot = 0, uvTot = 0, contactTot = 0, sessAll = [], uvNull = false;
     var projViews = {}, projReads = {}, projDwell = [];
     var scoreDist = {}, scrollDist = {}, funnelAgg = { downloadResume: 0, wechat: 0, email: 0, exportPrd: 0, deliverableLink: 0 };
     var recommendTotal = 0, recommendHigh = 0;
@@ -231,7 +231,7 @@ window.DashboardData = (function () {
     dayResults.forEach(function (d) {
       var a = d.agg || aggregateHits([]);
       daily.push({ date: d.day, label: d.label, pv: d.pv, uv: d.uv, downloads: a.downloadResume, sessionSec: avg(a.sessionDur), contactReach: a.section.contact || 0 });
-      pvTot += d.pv; uvTot += d.uv; contactTot += (a.section.contact || 0); sessAll = sessAll.concat(a.sessionDur);
+      pvTot += d.pv; if (d.uv == null) uvNull = true; else uvTot += d.uv; contactTot += (a.section.contact || 0); sessAll = sessAll.concat(a.sessionDur);
       Object.keys(a.projView).forEach(function (k) { projViews[k] = (projViews[k] || 0) + a.projView[k]; });
       Object.keys(a.projRead).forEach(function (k) { projReads[k] = (projReads[k] || 0) + a.projRead[k]; });
       projDwell = projDwell.concat(a.projDwell);
@@ -243,6 +243,7 @@ window.DashboardData = (function () {
       recommendHigh += sum(Object.keys(a.recommend).filter(function (k) { return +k >= 7; }).map(function (k) { return a.recommend[k]; }));
     });
 
+    if (uvNull) uvTot = null;
     var projects = Object.keys(projViews).map(function (k) {
       return { name: k, short: shortName(k), views: projViews[k], reads: projReads[k] || 0, avgDwellSec: avg(projDwell) }; // 真实数据停留取整体均值（可按项目细化）
     }).sort(function (a, b) { return b.views - a.views; });
@@ -263,7 +264,7 @@ window.DashboardData = (function () {
         rangeLabel: rangeLabel(daily.length),
         start: startStr, end: endStr,
         generatedAt: new Date().toISOString(),
-        note: '来自 GoatCounter 实时数据（站点 ' + CONFIG.siteCode + '）。'
+        note: '来自 GoatCounter 实时数据（站点 ' + CONFIG.siteCode + '）。' + (uvTot == null ? '（当前套餐不返回 UV，UV 以 — 显示）' : '')
       },
       totals: {
         pv: pvTot, uv: uvTot, downloads: funnelAgg.downloadResume,

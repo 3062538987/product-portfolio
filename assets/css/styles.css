@@ -816,6 +816,14 @@ b, strong { color: var(--ink); font-weight: 600; }
 .admin-actions .primary { background: #2563EB; border-color: #2563EB; }
 .admin-actions .primary:hover { background: #1D4ED8; }
 .admin-actions .danger { color: #FCA5A5; border-color: rgba(252,165,165,.4); }
+.admin-actions a.dash-entry {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 16px; border-radius: 999px;
+  border: 1px solid #2563EB; background: #2563EB; color: #fff;
+  font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer;
+  transition: background var(--t-fast), border-color var(--t-fast);
+}
+.admin-actions a.dash-entry:hover { background: #1D4ED8; border-color: #1D4ED8; }
 
 .admin-main { max-width: 880px; margin: 0 auto; padding: 24px 20px 80px; }
 .admin-section {

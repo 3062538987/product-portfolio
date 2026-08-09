@@ -115,7 +115,7 @@
   function renderKPIs(t, m) {
     var cards = [
       { k: 'pv', label: '页面访问 PV', value: fmt(t.pv), sub: '每日均值 ' + fmt(Math.round(t.pv / Math.max(1, m.daily.length))) },
-      { k: 'uv', label: '独立访客 UV', value: fmt(t.uv), sub: '每日均值 ' + fmt(Math.round(t.uv / Math.max(1, m.daily.length))) },
+      { k: 'uv', label: '独立访客 UV', value: fmt(t.uv), sub: t.uv != null ? '每日均值 ' + fmt(Math.round(t.uv / Math.max(1, m.daily.length))) : '本套餐不返回 UV' },
       { k: 'dl', label: '简历下载', value: fmt(t.downloads), sub: '联系区到达 ' + fmt(t.contactReach) },
       { k: 'sess', label: '平均停留', value: fmtSec(t.avgSessionSec), sub: '早退 ' + fmt(t.bounce) + ' · 未到联系 ' + fmt(t.noContact) }
     ];
@@ -134,7 +134,7 @@
     var W = 760, H = 300, padL = 48, padR = 18, padT = 18, padB = 36;
     var iw = W - padL - padR, ih = H - padT - padB;
     var maxV = 0;
-    daily.forEach(function (d) { maxV = Math.max(maxV, d.pv, d.uv); });
+    daily.forEach(function (d) { maxV = Math.max(maxV, d.pv, (typeof d.uv === 'number' ? d.uv : 0)); });
     maxV = niceMax(maxV);
 
     var n = daily.length;
@@ -174,10 +174,11 @@
       }
     });
 
+    var uvValid = daily.every(function (d) { return typeof d.uv === 'number'; });
     var series = [
-      { key: 'pv', color: '#2563EB', fill: 'rgba(37,99,235,.10)' },
-      { key: 'uv', color: '#059669', fill: 'rgba(5,150,105,.08)' }
+      { key: 'pv', color: '#2563EB', fill: 'rgba(37,99,235,.10)' }
     ];
+    if (uvValid) series.push({ key: 'uv', color: '#059669', fill: 'rgba(5,150,105,.08)' });
 
     series.forEach(function (s) {
       var pts = daily.map(function (d, i) { return xAt(i) + ',' + yAt(d[s.key]); });
@@ -232,8 +233,10 @@
     mount.appendChild(svg);
 
     // 图例
-    $('#trendLegend').innerHTML = '<span class="dash-legend__item"><i style="background:#2563EB"></i>PV 页面访问</span>' +
-      '<span class="dash-legend__item"><i style="background:#059669"></i>UV 独立访客</span>';
+    $('#trendLegend').innerHTML = series.map(function (s) {
+      var lbl = s.key === 'pv' ? 'PV 页面访问' : 'UV 独立访客';
+      return '<span class="dash-legend__item"><i style="background:' + s.color + '"></i>' + lbl + '</span>';
+    }).join('');
   }
 
   function niceMax(v) {
