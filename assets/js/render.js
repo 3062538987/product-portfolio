@@ -123,9 +123,21 @@
     dels.forEach(function (d) {
       var links = '';
       (d.links || []).forEach(function (l) {
-        if (l.url) links += '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label || '查看') + '</a>';
+        if (l.url) links += '<a href="' + esc(l.url) + '" target="_blank" rel="noopener" data-track="deliverable_link">' + esc(l.label || '查看') + '</a>';
       });
+      var imgs = d.img ? (Array.isArray(d.img) ? d.img : [d.img]) : [];
+      var thumbs = '';
+      if (imgs.length) {
+        thumbs = '<div class="deliverable-thumbs">';
+        imgs.forEach(function (src) {
+          var alt = esc(d.name || '交付物截图');
+          thumbs += '<button type="button" class="deliverable-thumb" data-lightbox="' + esc(src) + '" data-caption="' + alt + '" aria-label="放大查看：' + alt + '">' +
+            '<img src="' + esc(src) + '" alt="' + alt + '" loading="lazy"></button>';
+        });
+        thumbs += '</div>';
+      }
       items += '<li><span class="doc-name">' + DOC_ICON + esc(d.name || '') + '</span>' +
+        thumbs +
         (links ? '<span class="doc-actions">' + links + '</span>' : '') + '</li>';
     });
     if (!items) return '';

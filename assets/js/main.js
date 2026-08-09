@@ -279,4 +279,36 @@
   }
 
   initFeedback();
+  initLightbox();
+
+  /* ---------- 8. 交付物图片灯箱（点击缩略图放大） ---------- */
+  function initLightbox() {
+    var lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.setAttribute('hidden', '');
+    lb.innerHTML = '<button type="button" class="lightbox-close" aria-label="关闭">' +
+      '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
+      '<img class="lightbox-img" alt=""><p class="lightbox-cap"></p>';
+    document.body.appendChild(lb);
+    var img = lb.querySelector('.lightbox-img');
+    var cap = lb.querySelector('.lightbox-cap');
+    function open(src, caption) {
+      img.src = src; img.alt = caption || '';
+      cap.textContent = caption || '';
+      lb.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lb.setAttribute('hidden', ''); img.src = '';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('.deliverable-thumb');
+      if (t) { e.preventDefault(); open(t.getAttribute('data-lightbox'), t.getAttribute('data-caption')); return; }
+      if (!lb.hidden && (e.target === lb || e.target.closest('.lightbox-close'))) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !lb.hidden) close();
+    });
+  }
 })();

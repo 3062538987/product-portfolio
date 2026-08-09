@@ -164,12 +164,12 @@ window.SITE_CONTENT = {
       "deliverables": [
         {
           "name": "Bloom OS 第一阶段 PRD V1.0（S0–S2，通过评审）",
-          "links": []
-        },
+          "img": "assets/img/deliverables/bloomos-prd-review.jpg",
+          "links": []},
         {
           "name": "产品研发协作战图 V5.1（团队采纳为标准参考）",
-          "links": []
-        },
+          "img": "assets/img/deliverables/bloomos-flow.png",
+          "links": []},
         {
           "name": "4 条主推自动化子项目挂载说明",
           "links": []
@@ -297,8 +297,8 @@ window.SITE_CONTENT = {
         },
         {
           "name": "双轨自动化方案 + 12 项业务规则 + RPA 生产测试方案",
-          "links": []
-        }
+          "img": "assets/img/deliverables/supplychain-arch.png",
+          "links": []}
       ]
     },
     {
@@ -414,8 +414,8 @@ window.SITE_CONTENT = {
         },
         {
           "name": "通用自动化框架流程图",
-          "links": []
-        },
+          "img": ["assets/img/deliverables/temu-batch-activity-half.png", "assets/img/deliverables/temu-batch-activity-full.png"],
+          "links": []},
         {
           "name": "11 项需求优先级与排期建议（分三批落地）",
           "links": []
