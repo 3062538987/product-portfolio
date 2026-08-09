@@ -434,8 +434,11 @@ b, strong { color: var(--ink); font-weight: 600; }
   width: 22px; height: 22px; border-radius: 6px;
   display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.module p { font-size: 15px; color: var(--body); line-height: 1.8; }
-.module ul { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.module p { font-size: 15px; color: var(--body); line-height: 1.8; margin-bottom: var(--sp-3); text-wrap: pretty; }
+.module p:last-child { margin-bottom: 0; }
+.module ul { display: flex; flex-direction: column; gap: 8px; margin-top: 0; }
+/* 段与列表/表格之间统一留出节奏（避免 reset 把 p 间距清零后段落粘连） */
+.module p + ul, .module p + .table-wrap, .module p + .module-note { margin-top: var(--sp-3); }
 .module ul li { font-size: 15px; color: var(--body); line-height: 1.7; padding-left: 18px; position: relative; }
 .module ul li::before { content: ''; position: absolute; left: 4px; top: 11px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent, var(--brand)); }
 
