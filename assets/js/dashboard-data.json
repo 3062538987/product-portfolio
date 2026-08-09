@@ -4,20 +4,20 @@
     "rangeLabel": "近 90 天（快照）",
     "start": "2026-05-12",
     "end": "2026-08-09",
-    "generatedAt": "2026-08-09T21:00:00Z",
-    "note": "GoatCounter 真实快照（站点 3062538987）。由实测拉取的真实数据构建（API 临时限流，导出脚本 .workbuddy/export_dashboard_json.py 限流恢复后可一键刷新）。当前套餐不返回 UV，UV 以 — 显示。"
+    "generatedAt": "2026-08-09T13:46:17Z",
+    "note": "GoatCounter 实时快照（站点 3062538987），由 .workbuddy/export_dashboard_json.py 本地生成并随站点发布。（当前套餐不返回 UV，UV 以 — 显示）"
   },
   "totals": {
-    "pv": 31,
+    "pv": 37,
     "uv": null,
     "downloads": 0,
     "avgSessionSec": 35,
     "contactReach": 1,
-    "projViewTotal": 3,
+    "projViewTotal": 4,
     "bounce": 2,
     "noContact": 0,
-    "recommendTotal": 2,
-    "recommendHigh": 2
+    "recommendTotal": 0,
+    "recommendHigh": 0
   },
   "daily": [
     {
@@ -2285,7 +2285,7 @@
     {
       "date": "2026-08-07",
       "label": "08-07",
-      "pv": 0,
+      "pv": 2,
       "uv": null,
       "downloads": 0,
       "sessionSec": 0,
@@ -2311,13 +2311,15 @@
     {
       "date": "2026-08-08",
       "label": "08-08",
-      "pv": 20,
+      "pv": 24,
       "uv": null,
       "downloads": 0,
       "sessionSec": 0,
       "contactReach": 0,
       "detail": {
-        "projViews": {},
+        "projViews": {
+          "Bloom OS 系统设计：运营自动化、供应链自动化、绩效自动化": 1
+        },
         "projReads": {},
         "recommend": {},
         "scroll": {},
@@ -2349,16 +2351,12 @@
           "Bloom OS：AI Native 跨境电商业务操作系统（S0–S6）": 1
         },
         "projReads": {},
-        "recommend": {
-          "7": 1,
-          "8": 1,
-          "9": 0
-        },
+        "recommend": {},
         "scroll": {
-          "25": 3,
           "50": 3,
-          "75": 1,
-          "100": 1
+          "25": 3,
+          "100": 1,
+          "75": 1
         },
         "section": {
           "projects": 3,
@@ -2373,9 +2371,8 @@
           "email": 0
         },
         "sessionDur": [
-          10,
-          70,
-          0
+          0,
+          70
         ],
         "exitBounce": 2,
         "exitNoContact": 0
@@ -2383,6 +2380,13 @@
     }
   ],
   "projects": [
+    {
+      "name": "Bloom OS 系统设计：运营自动化、供应链自动化、绩效自动化",
+      "short": "Bloom OS",
+      "views": 1,
+      "reads": 0,
+      "avgDwellSec": 35
+    },
     {
       "name": "TEMU 运营自动化：11 项需求 PRD + 通用自动化框架",
       "short": "TEMU 运营自动化",
@@ -2436,11 +2440,11 @@
     },
     {
       "score": 7,
-      "count": 1
+      "count": 0
     },
     {
       "score": 8,
-      "count": 1
+      "count": 0
     },
     {
       "score": 9,
@@ -2491,6 +2495,6 @@
       "value": 0
     }
   ],
-  "scoreAvg": 7.5,
+  "scoreAvg": 0,
   "downloadAfterAvg": 0
 }

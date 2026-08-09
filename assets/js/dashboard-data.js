@@ -160,13 +160,13 @@ window.DashboardData = (function () {
       var p = (h.path || '').replace(/^\//, ''), c = h.count || 0; // GoatCounter 事件路径带前导斜杠，需去掉
       if (p.indexOf('event:') !== 0) return;
       var rest = p.slice(6);
-      if (rest.indexOf('project_view:') === 0) m.projView[rest.slice(12)] = (m.projView[rest.slice(12)] || 0) + c;
-      else if (rest.indexOf('project_read:') === 0) m.projRead[rest.slice(12)] = (m.projRead[rest.slice(12)] || 0) + c;
+      if (rest.indexOf('project_view:') === 0) m.projView[rest.slice(13)] = (m.projView[rest.slice(13)] || 0) + c;
+      else if (rest.indexOf('project_read:') === 0) m.projRead[rest.slice(13)] = (m.projRead[rest.slice(13)] || 0) + c;
       else if (rest.indexOf('project_dwell:') === 0) { var t = rest.slice(13); var k = t.lastIndexOf(':'); if (k > 0) { var s = parseInt(t.slice(k + 1), 10); if (!isNaN(s)) m.projDwell.push(s); } }
-      else if (rest.indexOf('download_after:') === 0) { var da = parseInt(rest.slice(14), 10); if (!isNaN(da)) m.downloadAfter.push(da); } // 'download_after:' = 14 字符
-      else if (rest.indexOf('session_duration:') === 0) { var sd = parseInt(rest.slice(16), 10); if (!isNaN(sd)) m.sessionDur.push(sd); }
-      else if (rest.indexOf('resume_recommend:') === 0) { var r = parseInt(rest.slice(16), 10); if (!isNaN(r)) m.recommend[r] = (m.recommend[r] || 0) + c; }
-      else if (rest.indexOf('section_view:') === 0) m.section[rest.slice(12)] = (m.section[rest.slice(12)] || 0) + c;
+      else if (rest.indexOf('download_after:') === 0) { var da = parseInt(rest.slice(15), 10); if (!isNaN(da)) m.downloadAfter.push(da); } // 'download_after:' = 15 字符
+      else if (rest.indexOf('session_duration:') === 0) { var sd = parseInt(rest.slice(17), 10); if (!isNaN(sd)) m.sessionDur.push(sd); }
+      else if (rest.indexOf('resume_recommend:') === 0) { var r = parseInt(rest.slice(17), 10); if (!isNaN(r)) m.recommend[r] = (m.recommend[r] || 0) + c; }
+      else if (rest.indexOf('section_view:') === 0) m.section[rest.slice(13)] = (m.section[rest.slice(13)] || 0) + c;
       else if (rest.indexOf('scroll_depth:') === 0) m.scroll[rest.slice(13)] = (m.scroll[rest.slice(13)] || 0) + c; // 'scroll_depth:' = 13 字符
       else if (rest.indexOf('hero_cta:') === 0) m.heroCta[rest.slice(9)] = (m.heroCta[rest.slice(9)] || 0) + c;
       else if (rest === 'download_resume') m.downloadResume += c;
@@ -209,23 +209,34 @@ window.DashboardData = (function () {
     var cur = new Date(startStr + 'T00:00:00');
     var end = new Date(endStr + 'T00:00:00');
     while (cur <= end) { days.push(ymd(cur)); cur.setDate(cur.getDate() + 1); }
+    // API 的 end 是排他的，往后推 1 天确保最后一天被包含
+    var apiEnd = ymd(addDays(new Date(endStr + 'T00:00:00'), 1));
 
-    return mapLimit(days, CONFIG.liveConcurrency, function (day) {
-      var nextDay = ymd(addDays(new Date(day + 'T00:00:00'), 1));
-      return Promise.all([
-        apiGet(base, '/stats/total', { start: day, end: nextDay }, key),
-        apiGet(base, '/stats/hits', { start: day, end: nextDay, limit: 1000 }, key)
-      ]).then(function (res) {
-        var total = res[0] || {};
-        var hits = (res[1] && res[1].hits) || [];
-        // PV 在 stats[].daily（按 UTC 日分桶），单日查询会多返回前一天的桶；
-        // 精确匹配当天 day 取该桶 daily，避免把相邻两天累加进同一天。
-        var pv = 0, matched = false;
-        (total.stats || []).forEach(function (s) { if (s.day === day) { pv = s.daily || 0; matched = true; } });
-        if (!matched) (total.stats || []).forEach(function (s) { pv += (s.daily || 0); });
-        return { day: day, label: day.slice(5), pv: pv, uv: (total.total_unique == null ? null : total.total_unique), agg: aggregateHits(hits) };
-      }).catch(function (e) { return { day: day, label: day.slice(5), pv: 0, uv: 0, agg: aggregateHits([]), error: e.message }; });
-    }).then(function (dayResults) { return buildFromDayResults(dayResults, startStr, endStr); });
+    // 1) 一次拉全量逐日 PV；daily 字段会随查询窗口/站点时区偏移（同一天可能返回 4/20/24），
+    //    不可靠 → 改用每个桶的 hourly[24] 数组求和（= 当天真实 pageview 总和，跨查询稳定）。
+    return apiGet(base, '/stats/total', { start: startStr, end: apiEnd }, key).then(function (total) {
+      var pvByDay = {};
+      (total.stats || []).forEach(function (s) {
+        var hh = s.hourly;
+        pvByDay[s.day] = (hh && hh.length) ? hh.reduce(function (a, b) { return a + (b || 0); }, 0) : (s.daily || 0);
+      });
+      var activeDays = days.filter(function (d) { return (pvByDay[d] || 0) > 0; });
+      // 2) 仅对 PV>0 的天拉事件明细，省请求、躲限流
+      return mapLimit(activeDays, CONFIG.liveConcurrency, function (day) {
+        var nextDay = ymd(addDays(new Date(day + 'T00:00:00'), 1));
+        return apiGet(base, '/stats/hits', { start: day, end: nextDay, limit: 1000 }, key).then(function (hitsObj) {
+          return { day: day, hits: (hitsObj && hitsObj.hits) || [] };
+        });
+      }).then(function (hitResults) {
+        var hitsByDay = {};
+        hitResults.forEach(function (r) { hitsByDay[r.day] = r.hits; });
+        var dayResults = days.map(function (day) {
+          var agg = aggregateHits(hitsByDay[day] || []);
+          return { day: day, label: day.slice(5), pv: pvByDay[day] || 0, uv: null, agg: agg };
+        });
+        return buildFromDayResults(dayResults, startStr, endStr);
+      });
+    });
   }
 
   function buildFromDayResults(dayResults, startStr, endStr) {
