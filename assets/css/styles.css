@@ -104,7 +104,7 @@ b, strong { color: var(--ink); font-weight: 600; }
 }
 
 /* ---------- 通用：区块标题 ---------- */
-.section { padding: clamp(44px, 6.5vw, 84px) 0; }
+.section { padding: clamp(32px, 4.5vw, 56px) 0; }
 .section-head { margin-bottom: var(--sp-8); max-width: 720px; }
 .section-head--center { margin-left: auto; margin-right: auto; text-align: center; }
 .section-title {
@@ -232,8 +232,8 @@ b, strong { color: var(--ink); font-weight: 600; }
    ============================================================ */
 .hero {
   position: relative;
-  padding-top: calc(var(--nav-h) + clamp(48px, 9vw, 110px));
-  padding-bottom: clamp(56px, 9vw, 110px);
+  padding-top: calc(var(--nav-h) + clamp(32px, 6vw, 72px));
+  padding-bottom: clamp(40px, 6vw, 72px);
   overflow: hidden;
 }
 /* 极克制的背景处理：角落柔和蓝色辉光 + 细网格 */
