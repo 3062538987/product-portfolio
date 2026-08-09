@@ -13,7 +13,8 @@ window.SITE_CONTENT = {
       "repo": "product-portfolio",
       "branch": "gh-pages",
       "path": "assets/js/content.js"
-    }
+    },
+    "hideDeliverables": true
   },
   "hero": {
     "kicker": "2027 届秋招",

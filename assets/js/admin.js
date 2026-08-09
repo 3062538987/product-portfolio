@@ -14,11 +14,35 @@
   var data = loadData();
   var admin = loadAdmin();
 
+  // 增量合并：base 为 content.js（真相源），over 为 localStorage 草稿。
+  // 草稿只覆盖它已有的字段；base 新增的字段/数组项（如新项目、hideDeliverables 开关）
+  // 仍会生效，避免旧草稿把新内容整体冲掉。
+  function mergeContent(base, over) {
+    if (over == null) return base;
+    if (base == null) return over;
+    if (Array.isArray(base) || Array.isArray(over)) {
+      var bArr = Array.isArray(base) ? base : [];
+      var oArr = Array.isArray(over) ? over : [];
+      var out = bArr.map(function (item, i) {
+        return i < oArr.length ? mergeContent(item, oArr[i]) : item;
+      });
+      if (oArr.length > bArr.length) out = out.concat(oArr.slice(bArr.length));
+      return out;
+    }
+    if (typeof base === 'object' && typeof over === 'object') {
+      var res = {};
+      for (var k in base) res[k] = mergeContent(base[k], over[k]);
+      for (var k2 in over) if (!(k2 in res)) res[k2] = over[k2];
+      return res;
+    }
+    return over;
+  }
+
   function loadData() {
     var base = window.SITE_CONTENT ? JSON.parse(JSON.stringify(window.SITE_CONTENT)) : {};
     try {
       var d = localStorage.getItem(LS_DRAFT);
-      if (d) { var o = JSON.parse(d); if (o && o.site) return o; }
+      if (d) { var o = JSON.parse(d); if (o && o.site) return mergeContent(base, o); }
     } catch (e) {}
     return base;
   }

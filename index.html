@@ -22,7 +22,7 @@
   <!-- 非阻塞加载：字体不可达时也不阻塞首屏渲染（国内网络友好） -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260810T010943" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260810T011451" />
 </head>
 <body>
   <!-- ============ 导航栏 ============ -->
@@ -164,18 +164,44 @@
   <div class="prd-print" id="prdPrint" aria-hidden="true"></div>
 
   <!-- ============ 脚本：数据 → 渲染 → 交互 ============ -->
-  <script src="assets/js/content.js?v=20260810T010943"></script>
+  <script src="assets/js/content.js?v=20260810T011451"></script>
   <script>
-    /* 本地预览：若后台已「保存」，用 localStorage 草稿覆盖默认内容 */
+    /* 本地预览：若后台已「保存」，用 localStorage 草稿增量合并到默认内容。
+       合并策略：以 content.js 为基准，草稿只覆盖它已有的字段；
+       content.js 新增的字段/项目（如第 N 个项目、hideDeliverables 开关）仍会生效，
+       避免旧草稿把新内容整体覆盖掉。 */
     (function () {
+      function mergeContent(base, over) {
+        if (over == null) return base;
+        if (base == null) return over;
+        if (Array.isArray(base) || Array.isArray(over)) {
+          var bArr = Array.isArray(base) ? base : [];
+          var oArr = Array.isArray(over) ? over : [];
+          var out = bArr.map(function (item, i) {
+            return i < oArr.length ? mergeContent(item, oArr[i]) : item;
+          });
+          if (oArr.length > bArr.length) out = out.concat(oArr.slice(bArr.length));
+          return out;
+        }
+        if (typeof base === 'object' && typeof over === 'object') {
+          var res = {};
+          for (var k in base) res[k] = mergeContent(base[k], over[k]);
+          for (var k2 in over) if (!(k2 in res)) res[k2] = over[k2];
+          return res;
+        }
+        return over;
+      }
       try {
         var d = localStorage.getItem('portfolio-content-v1');
-        if (d) { var o = JSON.parse(d); if (o && o.site) window.SITE_CONTENT = o; }
+        if (d) {
+          var o = JSON.parse(d);
+          if (o && o.site) window.SITE_CONTENT = mergeContent(window.SITE_CONTENT, o);
+        }
       } catch (e) {}
     })();
   </script>
-  <script src="assets/js/analytics.js?v=20260810T010943"></script>
-  <script src="assets/js/render.js?v=20260810T010943" defer></script>
-  <script src="assets/js/main.js?v=20260810T010943" defer></script>
+  <script src="assets/js/analytics.js?v=20260810T011451"></script>
+  <script src="assets/js/render.js?v=20260810T011451" defer></script>
+  <script src="assets/js/main.js?v=20260810T011451" defer></script>
 </body>
 </html>

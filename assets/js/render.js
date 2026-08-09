@@ -118,6 +118,7 @@
   }
 
   function renderDeliverables(dels) {
+    if (D.site && D.site.hideDeliverables) return '';
     if (!dels || !dels.length) return '';
     var items = '';
     dels.forEach(function (d) {
@@ -355,7 +356,7 @@
       }
       if (m.note) html += '<p class="prd-note">' + md(m.note) + '</p>';
     });
-    if (p.deliverables && p.deliverables.length) {
+    if (p.deliverables && p.deliverables.length && !(D.site && D.site.hideDeliverables)) {
       html += '<h2>相关交付物</h2><ul>';
       p.deliverables.forEach(function (d) { html += '<li>' + esc(d.name || '') + '</li>'; });
       html += '</ul>';
