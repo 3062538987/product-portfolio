@@ -121,7 +121,7 @@
     try { if (sessionStorage.getItem(KEY)) return; sessionStorage.setItem(KEY, '1'); } catch (e) { return; }
     if (window.track) window.track('section_view', id);
   }
-  var viewSections = Array.from(document.querySelectorAll('#hero, #projects, #about, #articles, #contact'));
+  var viewSections = Array.from(document.querySelectorAll('#projects, #about, #articles, #contact'));
   if ('IntersectionObserver' in window && viewSections.length) {
     var secViewObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -279,36 +279,28 @@
       var expanded = toggle.getAttribute('aria-expanded') === 'true';
       var willOpen = !expanded;
       setCardState(card, toggle, body, willOpen);
-      // 埋点：项目 / 文章 展开 + 去重曝光 + 认真阅读（停留≥8s）
+      // 埋点：仅项目卡埋点。审计后已移除 article_*（文章区弱）与 project_open（重复计数，改用去重 project_view）
       if (willOpen && window.track) {
         var kind = card.getAttribute('data-kind');
+        if (kind === 'article') return; // 文章不单独埋点
         var nm = (card.querySelector('.card-name') || {}).textContent || '';
-        window.track(kind === 'article' ? 'article_open' : 'project_open', nm);
-        if (kind === 'article') {
-          // 文章：去重曝光（区分于会重复计数的 article_open）
-          try {
-            var ak = 'gc_art_viewed';
-            var av = JSON.parse(sessionStorage.getItem(ak) || '[]');
-            if (av.indexOf(nm) === -1) { av.push(nm); sessionStorage.setItem(ak, JSON.stringify(av)); window.track('article_view', nm); }
-          } catch (e) {}
-        } else if (nm && window.sessionStorage) {
-          // 项目：去重曝光（对比「哪个项目更受 HR 青睐」）
-          try {
-            var KEY = 'gc_proj_viewed';
-            var viewed = JSON.parse(sessionStorage.getItem(KEY) || '[]');
-            if (viewed.indexOf(nm) === -1) {
-              viewed.push(nm);
-              sessionStorage.setItem(KEY, JSON.stringify(viewed));
-              window.track('project_view', nm);
-            }
-          } catch (e) {}
-        }
-        // 认真阅读信号：展开满 8 秒且仍处于展开状态才记 *_read（强兴趣 / 真读完）
+        if (!nm) return;
+        // 项目：去重曝光（对比「哪个项目更受 HR 青睐」，比会重复计数的 project_open 准）
+        try {
+          var KEY = 'gc_proj_viewed';
+          var viewed = JSON.parse(sessionStorage.getItem(KEY) || '[]');
+          if (viewed.indexOf(nm) === -1) {
+            viewed.push(nm);
+            sessionStorage.setItem(KEY, JSON.stringify(viewed));
+            window.track('project_view', nm);
+          }
+        } catch (e) {}
+        // 认真阅读信号：展开满 8 秒且仍处于展开状态才记 project_read（强兴趣 / 真读完）
         if (!card.getAttribute('data-read-tracked')) {
           setTimeout(function () {
             if (card.classList.contains('is-open')) {
               card.setAttribute('data-read-tracked', '1');
-              window.track(kind === 'article' ? 'article_read' : 'project_read', nm);
+              window.track('project_read', nm);
             }
           }, 8000);
         }

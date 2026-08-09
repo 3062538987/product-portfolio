@@ -262,7 +262,7 @@
     (c.socials || []).forEach(function (s) {
       if (!s.url) return; // 没填链接的社交不渲染
       socials += '<a class="social-btn" href="' + esc(s.url) + '" target="_blank" rel="noopener" ' +
-        'data-track="social:' + esc(s.label || s.type) + '" aria-label="' + esc(s.label || s.type) + '">' +
+        'aria-label="' + esc(s.label || s.type) + '">' +
         icon(s.type) + esc(s.label || s.type) + '</a>';
     });
     ci.innerHTML = (list ? '<ul class="contact-list" data-reveal>' + list + '</ul>' : '') +
