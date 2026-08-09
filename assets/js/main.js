@@ -26,6 +26,21 @@
     progressBar.firstElementChild.style.transform = 'scaleX(' + p + ')';
   }
 
+  /* ---------- 0.1 埋点：滚动深度里程碑（25/50/75/100%，session 去重） ---------- */
+  var DEPTH_MARKS = [25, 50, 75, 100];
+  function updateDepth() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    if (max <= 0) return;
+    var p = Math.min(100, Math.round((window.scrollY / max) * 100));
+    DEPTH_MARKS.forEach(function (m) {
+      if (p < m) return;
+      var KEY = 'gc_depth:' + m;
+      try { if (sessionStorage.getItem(KEY)) return; sessionStorage.setItem(KEY, '1'); } catch (e) { return; }
+      if (window.track) window.track('scroll_depth', m);
+    });
+  }
+
   /* ---------- 1. 平滑滚动 ---------- */
   document.addEventListener('click', function (e) {
     var link = e.target.closest('[data-scroll]');
@@ -48,7 +63,16 @@
   /* ---------- 0.5 埋点：联系方式 / 下载简历 等带 data-track 的点击 ---------- */
   document.addEventListener('click', function (e) {
     var t = e.target.closest('[data-track]');
-    if (t && window.track) window.track(t.getAttribute('data-track'));
+    if (!t || !window.track) return;
+    var name = t.getAttribute('data-track');
+    window.track(name);
+    // 下载简历时额外记录「下载前看过的项目数」——衡量内容说服力（核心转化指标）
+    if (name === 'download_resume') {
+      var n = 0;
+      try { n = (JSON.parse(sessionStorage.getItem('gc_proj_viewed') || '[]')).length; } catch (e2) {}
+      try { sessionStorage.setItem('gc_downloaded', '1'); } catch (e2) {}
+      window.track('download_after', n);
+    }
   });
 
   /* ---------- 0.6 导出 PRD（按项目生成 PDF） ---------- */
@@ -65,6 +89,7 @@
   }
   window.addEventListener('scroll', updateNavShadow, { passive: true });
   window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('scroll', updateDepth, { passive: true });
   updateNavShadow();
   updateProgress();
 
@@ -87,6 +112,26 @@
       });
     }, { root: null, rootMargin: '-80px 0px 0px 0px', threshold: 0.3 });
     sections.forEach(function (s) { navObserver.observe(s); });
+  }
+
+  /* ---------- 3.5 埋点：区块曝光漏斗（到达 projects/about/contact 等核心区） ---------- */
+  function trackSectionView(id) {
+    if (!id) return;
+    var KEY = 'gc_section:' + id;
+    try { if (sessionStorage.getItem(KEY)) return; sessionStorage.setItem(KEY, '1'); } catch (e) { return; }
+    if (window.track) window.track('section_view', id);
+  }
+  var viewSections = Array.from(document.querySelectorAll('#hero, #projects, #about, #articles, #contact'));
+  if ('IntersectionObserver' in window && viewSections.length) {
+    var secViewObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          trackSectionView(entry.target.id);
+          secViewObserver.unobserve(entry.target);
+        }
+      });
+    }, { root: null, rootMargin: '0px 0px -50% 0px', threshold: 0 });
+    viewSections.forEach(function (s) { secViewObserver.observe(s); });
   }
 
   /* ---------- 4. 滚动入场 reveal ---------- */
@@ -234,14 +279,20 @@
       var expanded = toggle.getAttribute('aria-expanded') === 'true';
       var willOpen = !expanded;
       setCardState(card, toggle, body, willOpen);
-      // 埋点：项目 / 文章 展开
+      // 埋点：项目 / 文章 展开 + 去重曝光 + 认真阅读（停留≥8s）
       if (willOpen && window.track) {
         var kind = card.getAttribute('data-kind');
         var nm = (card.querySelector('.card-name') || {}).textContent || '';
         window.track(kind === 'article' ? 'article_open' : 'project_open', nm);
-        // 去重「有效浏览」：同一次访问内展开同一项目只记 1 次 project_view，
-        // 用于对比「哪个项目更受 HR 青睐」（区分于会重复计数的 project_open 深度互动）
-        if (kind !== 'article' && nm && window.sessionStorage) {
+        if (kind === 'article') {
+          // 文章：去重曝光（区分于会重复计数的 article_open）
+          try {
+            var ak = 'gc_art_viewed';
+            var av = JSON.parse(sessionStorage.getItem(ak) || '[]');
+            if (av.indexOf(nm) === -1) { av.push(nm); sessionStorage.setItem(ak, JSON.stringify(av)); window.track('article_view', nm); }
+          } catch (e) {}
+        } else if (nm && window.sessionStorage) {
+          // 项目：去重曝光（对比「哪个项目更受 HR 青睐」）
           try {
             var KEY = 'gc_proj_viewed';
             var viewed = JSON.parse(sessionStorage.getItem(KEY) || '[]');
@@ -251,6 +302,15 @@
               window.track('project_view', nm);
             }
           } catch (e) {}
+        }
+        // 认真阅读信号：展开满 8 秒且仍处于展开状态才记 *_read（强兴趣 / 真读完）
+        if (!card.getAttribute('data-read-tracked')) {
+          setTimeout(function () {
+            if (card.classList.contains('is-open')) {
+              card.setAttribute('data-read-tracked', '1');
+              window.track(kind === 'article' ? 'article_read' : 'project_read', nm);
+            }
+          }, 8000);
         }
       }
     });
@@ -277,6 +337,28 @@
       }, 360);
     }
   }
+
+  /* ---------- 10. 离开诊断：早退 / 未到联系区就走（定位流失点） ---------- */
+  function trackExit() {
+    try {
+      if (sessionStorage.getItem('gc_exit_done')) return;
+      var reachedContact = !!sessionStorage.getItem('gc_section:contact');
+      var viewedAny = false;
+      try { viewedAny = (JSON.parse(sessionStorage.getItem('gc_proj_viewed') || '[]').length > 0); } catch (e) {}
+      var downloaded = !!sessionStorage.getItem('gc_downloaded');
+      var shallow = !sessionStorage.getItem('gc_depth:25');
+      if (shallow && !viewedAny && !downloaded) {
+        if (window.track) window.track('exit_bounce');       // 首屏没留住
+      } else if (!reachedContact) {
+        if (window.track) window.track('exit_no_contact');    // 看了内容但没滚到联系方式
+      }
+      sessionStorage.setItem('gc_exit_done', '1');
+    } catch (e) {}
+  }
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') trackExit();
+  });
+  window.addEventListener('pagehide', trackExit);
 
   initFeedback();
   initLightbox();

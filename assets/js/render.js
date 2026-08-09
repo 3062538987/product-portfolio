@@ -69,8 +69,8 @@
     }
     if (h.cta) {
       html += '<div class="hero-cta" data-reveal>' +
-        '<a href="#projects" class="btn btn-primary" data-scroll>查看作品 <span aria-hidden="true">↓</span></a>' +
-        '<a href="#about" class="btn btn-ghost" data-scroll>了解更多</a></div>';
+        '<a href="#projects" class="btn btn-primary" data-scroll data-track="hero_cta:view_projects">查看作品 <span aria-hidden="true">↓</span></a>' +
+        '<a href="#about" class="btn btn-ghost" data-scroll data-track="hero_cta:about">了解更多</a></div>';
     }
     c.innerHTML = html;
 
