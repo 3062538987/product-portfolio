@@ -230,14 +230,18 @@
     list.forEach(function (a, idx) {
       var id = a.id || ('art' + idx);
       var paras = (a.paragraphs || []).map(function (p) { return '<p>' + md(p) + '</p>'; }).join('');
+      var meta = (a.date || a.reading) ? ('<span class="art-meta">' +
+        (a.date ? '<time>' + esc(a.date) + '</time>' : '') +
+        (a.date && a.reading ? ' · ' : '') +
+        (a.reading ? esc(a.reading) : '') + '</span>') : '';
+      var kw = (a.keywords && a.keywords.length) ? ('<span class="card-tags" aria-label="关键词">' +
+        a.keywords.map(function (k) { return '<span class="tag">' + esc(k) + '</span>'; }).join('') + '</span>') : '<span></span>';
       html += '<article class="project-card" data-kind="article" data-reveal>' +
         '<button type="button" class="card-toggle" aria-expanded="false" aria-controls="' + id + '-body" id="' + id + '-toggle">' +
-        '<span class="card-toggle-main"><span class="card-name">' + esc(a.title || '') + '</span>' +
-        (a.date || a.reading ? '<span class="art-meta"><time>' + esc(a.date || '') + '</time>' +
-        (a.reading ? ' · ' + esc(a.reading) : '') + '</span>' : '') +
-        (a.keywords && a.keywords.length ? '<span class="card-tags">' + a.keywords.map(function (k) { return '<span class="tag">' + esc(k) + '</span>'; }).join('') + '</span>' : '') +
-        '</span>' +
-        '<span class="card-chevron" aria-hidden="true">展开</span></button>' +
+        '<span class="card-toggle-main"><span class="card-name-line">' +
+        '<span class="card-name">' + esc(a.title || '') + '</span>' + meta + '</span></span>' +
+        '<span class="card-toggle-footer">' + kw + '<span class="card-chevron" aria-hidden="true">展开</span></span>' +
+        '</button>' +
         '<div class="card-body" id="' + id + '-body" role="region" aria-labelledby="' + id + '-toggle" hidden>' +
         '<div class="card-body-inner">' + paras + '</div></div></article>';
     });

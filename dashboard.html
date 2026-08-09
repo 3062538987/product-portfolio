@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>作品集数据看板 · 江宇芳</title>
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260809T200356" />
+  <link rel="stylesheet" href="assets/css/dashboard.css?v=20260809T200356" />
+</head>
+<body>
+  <div class="dash">
+    <!-- ============ 顶栏（管理层之外的独立可视化页，无密码） ============ -->
+    <header class="dash-top">
+      <div class="dash-top__inner">
+        <div class="dash-top__title">
+          作品集数据看板
+          <small>埋点可视化 · 拉取时间范围 · 每天访问明细</small>
+        </div>
+
+        <div class="dash-ctrl">
+          <label for="rangeSelect">时间范围</label>
+          <select id="rangeSelect" class="dash-select">
+            <option value="7" selected>近 7 天</option>
+            <option value="14">近 14 天</option>
+            <option value="30">近 30 天</option>
+            <option value="90">近 90 天</option>
+            <option value="custom">自定义</option>
+          </select>
+        </div>
+
+        <div class="dash-ctrl" id="customRange" hidden>
+          <input type="date" id="customStart" class="dash-input" />
+          <span style="color:var(--muted)">~</span>
+          <input type="date" id="customEnd" class="dash-input" />
+        </div>
+
+        <div class="dash-ctrl">
+          <label for="sourceSelect">数据源</label>
+          <select id="sourceSelect" class="dash-select">
+            <option value="mock" selected>演示数据</option>
+            <option value="live">实时（GoatCounter）</option>
+            <option value="file">本地导出 JSON</option>
+          </select>
+        </div>
+
+        <button id="refreshBtn" class="dash-btn">刷新</button>
+      </div>
+    </header>
+
+    <!-- 实时模式 key 输入 -->
+    <div class="dash-keybox" id="keyBox" hidden>
+      <div class="dash-keybox__txt">
+        <b>粘贴 GoatCounter 只读 key</b>：登录后台 → 用户名 → API → 生成只读 key。仅存于本浏览器（localStorage），不会写入仓库，公开部署也不会泄露。
+      </div>
+      <input type="text" id="keyInput" placeholder="只读 API key" autocomplete="off" />
+      <button class="dash-keybox__save" id="keySave">保存并拉取</button>
+    </div>
+
+    <!-- ============ 主体 ============ -->
+    <main class="dash-body" id="dashBody">
+      <div class="dash-error" id="errorBar" hidden></div>
+
+      <div class="dash-meta">
+        <span class="dash-meta__range" id="metaRange">—</span>
+        <span class="dash-badge dash-badge--mock" id="modeBadge">演示</span>
+        <span class="dash-meta__note" id="metaNote"></span>
+      </div>
+
+      <!-- KPI -->
+      <section class="dash-kpis" id="kpis"></section>
+
+      <!-- 趋势（整宽） -->
+      <section class="dash-card dash-card--full">
+        <div class="dash-card__head">
+          <span class="dash-card__title">每日访问趋势</span>
+          <span class="dash-card__sub">悬停查看每日 PV / UV / 简历下载</span>
+        </div>
+        <div class="dash-trend-wrap">
+          <div id="trendChart"></div>
+          <div class="dash-tip" id="trendTip" hidden></div>
+        </div>
+        <div class="dash-legend" id="trendLegend"></div>
+      </section>
+
+      <div class="dash-grid" style="margin-top:16px">
+        <!-- 项目热度 -->
+        <section class="dash-card">
+          <div class="dash-card__head">
+            <span class="dash-card__title">项目热度排行</span>
+            <span class="dash-card__sub">被查看次数（去重）</span>
+          </div>
+          <div id="projChart"></div>
+          <div class="dash-card__sub" id="projSub" style="margin-top:10px"></div>
+        </section>
+
+        <!-- 转化动作 -->
+        <section class="dash-card">
+          <div class="dash-card__head">
+            <span class="dash-card__title">转化动作</span>
+            <span class="dash-card__sub">强意向信号</span>
+          </div>
+          <div id="funnelChart"></div>
+        </section>
+
+        <!-- 面试官打分 -->
+        <section class="dash-card">
+          <div class="dash-card__head">
+            <span class="dash-card__title">面试官打分（像素小狗）</span>
+            <span class="dash-card__sub" id="scoreAvg">平均分 — / 10</span>
+          </div>
+          <div class="dash-score" id="scoreChart"></div>
+        </section>
+
+        <!-- 滚动深度 -->
+        <section class="dash-card">
+          <div class="dash-card__head">
+            <span class="dash-card__title">滚动深度分布</span>
+            <span class="dash-card__sub">到达程度</span>
+          </div>
+          <div id="scrollChart"></div>
+        </section>
+      </div>
+
+      <!-- 每日明细表 -->
+      <section class="dash-card dash-card--full" style="margin-top:16px">
+        <div class="dash-card__head">
+          <span class="dash-card__title">每日明细</span>
+          <span class="dash-card__sub">按日期倒序</span>
+        </div>
+        <div class="dash-table-wrap">
+          <table class="dash-table" id="dashTable"></table>
+        </div>
+      </section>
+    </main>
+
+    <p class="dash-footnote">
+      说明：当前为<b>框架演示数据</b>，看板结构与真实埋点完全对齐（PV/UV、项目查看、简历下载、面试官打分、滚动深度等）。接入真实数据时，在右上角「数据源」切换为「实时」并粘贴 GoatCounter 只读 key（或选「本地导出 JSON」放一份导出文件），无需改动任何图表代码。key 仅存于本机浏览器，公开部署不会泄露。
+    </p>
+  </div>
+
+  <script src="assets/js/dashboard-data.js?v=20260809T200356"></script>
+  <script src="assets/js/dashboard.js?v=20260809T200356" defer></script>
+</body>
+</html>

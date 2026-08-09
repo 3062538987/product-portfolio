@@ -1,0 +1,148 @@
+/* ============================================================
+   数据看板样式（复用作品集品牌 token：品牌蓝 #2563EB / slate 中性）
+   零依赖、零构建；看板是「管理层」之外的独立可视化页（无密码）。
+   ============================================================ */
+
+.dash {
+  font-family: var(--font-sans);
+  color: var(--body);
+  background: var(--surface-2);
+  min-height: 100vh;
+  padding-bottom: 64px;
+}
+
+/* ---------- 顶栏 ---------- */
+.dash-top {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 0;
+}
+.dash-top__inner {
+  max-width: 1120px; margin: 0 auto; padding: 0 var(--sp-6);
+  display: flex; align-items: center; gap: var(--sp-4); flex-wrap: wrap;
+}
+.dash-top__title { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--ink); margin-right: auto; }
+.dash-top__title small { display: block; font-size: 12px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+
+.dash-ctrl { display: inline-flex; align-items: center; gap: 8px; }
+.dash-ctrl label { font-size: 13px; color: var(--muted); font-weight: 500; }
+.dash-select, .dash-input {
+  height: 38px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px;
+  font-size: 14px; color: var(--ink); background: #fff; font-family: inherit;
+}
+.dash-select:focus, .dash-input:focus { outline: 2px solid var(--brand); outline-offset: 1px; border-color: var(--brand); }
+.dash-input[type="date"] { width: 150px; }
+
+.dash-btn {
+  height: 38px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--brand);
+  background: var(--brand); color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: background var(--t-fast);
+}
+.dash-btn:hover { background: var(--brand-700); }
+
+/* ---------- 主体 ---------- */
+.dash-body { max-width: 1120px; margin: 0 auto; padding: 24px var(--sp-6) 0; }
+.dash-body.is-loading { opacity: .55; pointer-events: none; transition: opacity .2s; }
+
+.dash-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.dash-meta__range { font-size: 14px; color: var(--ink); font-weight: 600; }
+.dash-meta__note { font-size: 12.5px; color: var(--muted); }
+.dash-badge {
+  font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+}
+.dash-badge--mock { background: var(--brand-50); color: var(--brand-700); }
+.dash-badge--live { background: #ECFDF5; color: var(--emerald); }
+
+.dash-error {
+  background: #FEF2F2; border: 1px solid #FECACA; color: #B91C1C;
+  padding: 10px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 16px;
+}
+
+/* ---------- KPI 卡 ---------- */
+.dash-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 22px; }
+.dash-kpi {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 18px 20px; box-shadow: var(--shadow-1);
+}
+.dash-kpi__label { font-size: 13px; color: var(--muted); font-weight: 500; }
+.dash-kpi__value { font-family: var(--font-display); font-size: 30px; font-weight: 700; color: var(--ink); line-height: 1.1; margin: 8px 0 6px; font-variant-numeric: tabular-nums; }
+.dash-kpi__sub { font-size: 12px; color: var(--faint); }
+
+/* ---------- 卡片网格 ---------- */
+.dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.dash-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 20px; box-shadow: var(--shadow-1); min-width: 0;
+}
+.dash-card--full { grid-column: 1 / -1; }
+.dash-card__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.dash-card__title { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--ink); }
+.dash-card__sub { font-size: 12.5px; color: var(--muted); }
+
+.dash-svg { width: 100%; height: auto; display: block; }
+.dash-grid-line { stroke: var(--line); stroke-width: 1; }
+.dash-axis { fill: var(--muted); font-size: 11px; font-family: var(--font-sans); }
+.dash-guide { stroke: var(--brand); stroke-width: 1; stroke-dasharray: 4 3; }
+
+.dash-tip {
+  position: absolute; pointer-events: none; z-index: 5;
+  background: var(--ink); color: #fff; font-size: 12px; line-height: 1.5;
+  padding: 7px 10px; border-radius: 8px; box-shadow: var(--shadow-2);
+  white-space: nowrap;
+}
+.dash-tip[hidden] { display: none; }
+.dash-trend-wrap { position: relative; }
+
+.dash-legend { display: flex; gap: 18px; margin-top: 10px; font-size: 12.5px; color: var(--muted); }
+.dash-legend__item { display: inline-flex; align-items: center; gap: 6px; }
+.dash-legend__item i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+/* ---------- 横向条形 ---------- */
+.dash-bar { display: grid; grid-template-columns: 130px 1fr 64px; align-items: center; gap: 10px; padding: 7px 0; }
+.dash-bar__label { font-size: 13px; color: var(--body); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dash-bar__track { background: var(--surface-3); border-radius: 999px; height: 10px; overflow: hidden; }
+.dash-bar__fill { height: 100%; background: linear-gradient(90deg, var(--brand-500), var(--brand)); border-radius: 999px; }
+.dash-bar__val { font-size: 13px; color: var(--ink); font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---------- 打分分布（柱状） ---------- */
+.dash-score { display: flex; align-items: flex-end; gap: 6px; height: 160px; padding-top: 8px; }
+.dash-score__col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; gap: 6px; }
+.dash-score__bar { width: 100%; max-width: 26px; background: var(--brand-100); border-radius: 5px 5px 0 0; min-height: 2px; transition: height .3s var(--e-out); }
+.dash-score__bar.is-hot { background: var(--brand); }
+.dash-score__bar.is-cold { background: #CBD5E1; }
+.dash-score__x { font-size: 11px; color: var(--muted); }
+
+/* ---------- 明细表 ---------- */
+.dash-table-wrap { overflow-x: auto; }
+.dash-table { font-size: 13.5px; font-variant-numeric: tabular-nums; }
+.dash-table th, .dash-table td { padding: 10px 14px; text-align: left; white-space: nowrap; }
+.dash-table thead th { font-family: var(--font-display); font-size: 12.5px; font-weight: 600; color: var(--brand-700); background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.dash-table tbody td { color: var(--body); border-bottom: 1px solid var(--line-soft); }
+.dash-table tbody tr:last-child td { border-bottom: none; }
+.dash-table tbody tr:hover td { background: var(--surface-2); }
+
+/* ---------- key 输入（实时模式） ---------- */
+.dash-keybox {
+  background: var(--brand-50); border: 1px solid var(--brand-100);
+  border-radius: var(--r-lg); padding: 16px 18px; margin-bottom: 18px;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.dash-keybox[hidden] { display: none; }
+.dash-keybox__txt { font-size: 13px; color: var(--body); flex: 1; min-width: 220px; }
+.dash-keybox__txt b { color: var(--ink); }
+.dash-keybox input { height: 38px; padding: 0 12px; border: 1px solid var(--brand-100); border-radius: 10px; font-size: 13px; min-width: 240px; font-family: inherit; }
+.dash-keybox__save { height: 38px; padding: 0 18px; border-radius: 10px; border: none; background: var(--brand); color: #fff; font-weight: 600; font-size: 14px; cursor: pointer; }
+
+.dash-footnote { max-width: 1120px; margin: 24px auto 0; padding: 0 var(--sp-6); font-size: 12px; color: var(--faint); line-height: 1.7; }
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 900px) {
+  .dash-kpis { grid-template-columns: repeat(2, 1fr); }
+  .dash-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .dash-kpis { grid-template-columns: 1fr; }
+  .dash-bar { grid-template-columns: 96px 1fr 52px; }
+}

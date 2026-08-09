@@ -583,9 +583,15 @@ b, strong { color: var(--ink); font-weight: 600; }
    ARTICLES
    ============================================================ */
 .section-articles { background: var(--surface); }
-.articles-list { display: flex; flex-direction: column; gap: var(--sp-6); }
+.articles-list { display: flex; flex-direction: column; gap: var(--sp-4); }
 /* 文章改为与项目一致的就地展开卡片（见 .project-card / .card-toggle） */
 .art-meta { font-size: 13px; color: var(--muted); margin-top: 6px; font-variant-numeric: tabular-nums; }
+/* 文章卡片紧凑布局：标题与阅读时长同行，关键词与展开按钮同处 footer */
+.card-name-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-3); }
+.project-card[data-kind="article"] .card-toggle { gap: var(--sp-3); padding: var(--sp-4); }
+.project-card[data-kind="article"] .card-toggle-main { gap: 0; }
+.project-card[data-kind="article"] .art-meta { margin-top: 0; white-space: nowrap; }
+.project-card[data-kind="article"] .card-toggle-footer { margin-top: 0; }
 .card-body-inner > p { font-size: 15px; color: var(--body); line-height: 1.9; margin-bottom: var(--sp-3); }
 .card-body-inner > p:last-child { margin-bottom: 0; }
 
