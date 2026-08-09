@@ -17,6 +17,9 @@
 
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // 会话起始时间（用于上报真实会话时长）
+  var pageLoad = Date.now();
+
   /* ---------- 0. 阅读进度条 ---------- */
   function updateProgress() {
     if (!progressBar) return;
@@ -322,11 +325,20 @@
       body.removeAttribute('hidden');
       void body.offsetHeight;
       body.style.gridTemplateRows = '1fr';
+      // 记录展开起始时间（仅项目卡，用于真实停留时长）
+      if (card.getAttribute('data-kind') !== 'article') card._openAt = Date.now();
     } else {
       body.style.gridTemplateRows = '0fr';
       setTimeout(function () {
         if (body.style.gridTemplateRows === '0fr') body.setAttribute('hidden', '');
       }, 360);
+      // 收起时上报真实停留时长（仅项目卡；<3s 视为误触不记）
+      if (card.getAttribute('data-kind') !== 'article' && card._openAt && window.track) {
+        var sec = Math.round((Date.now() - card._openAt) / 1000);
+        card._openAt = 0;
+        var nm = (card.querySelector('.card-name') || {}).textContent || '';
+        if (sec >= 3 && nm) window.track('project_dwell:' + nm, Math.round(sec / 5) * 5);
+      }
     }
   }
 
@@ -344,6 +356,18 @@
       } else if (!reachedContact) {
         if (window.track) window.track('exit_no_contact');    // 看了内容但没滚到联系方式
       }
+      // 离开时补报：仍未关闭的项目卡停留时长（避免直接关标签页漏记）
+      cards.forEach(function (card) {
+        if (card.classList.contains('is-open') && card._openAt && card.getAttribute('data-kind') !== 'article' && window.track) {
+          var s = Math.round((Date.now() - card._openAt) / 1000);
+          card._openAt = 0;
+          var n = (card.querySelector('.card-name') || {}).textContent || '';
+          if (s >= 3 && n) window.track('project_dwell:' + n, Math.round(s / 5) * 5);
+        }
+      });
+      // 会话总时长（按 10s 分桶，降低 Top paths 行数）
+      var dur = Math.round((Date.now() - pageLoad) / 1000);
+      if (window.track) window.track('session_duration', Math.round(dur / 10) * 10);
       sessionStorage.setItem('gc_exit_done', '1');
     } catch (e) {}
   }
