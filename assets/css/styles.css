@@ -104,7 +104,7 @@ b, strong { color: var(--ink); font-weight: 600; }
 }
 
 /* ---------- 通用：区块标题 ---------- */
-.section { padding: clamp(32px, 4.5vw, 56px) 0; }
+.section { padding: clamp(44px, 6.5vw, 84px) 0; }
 .section-head { margin-bottom: var(--sp-8); max-width: 720px; }
 .section-head--center { margin-left: auto; margin-right: auto; text-align: center; }
 .section-title {
@@ -232,8 +232,8 @@ b, strong { color: var(--ink); font-weight: 600; }
    ============================================================ */
 .hero {
   position: relative;
-  padding-top: calc(var(--nav-h) + clamp(16px, 3vw, 40px));
-  padding-bottom: clamp(32px, 5vw, 56px);
+  padding-top: calc(var(--nav-h) + clamp(48px, 9vw, 110px));
+  padding-bottom: clamp(56px, 9vw, 110px);
   overflow: hidden;
 }
 /* 极克制的背景处理：角落柔和蓝色辉光 + 细网格 */
@@ -498,33 +498,6 @@ b, strong { color: var(--ink); font-weight: 600; }
 }
 .deliverables a:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
 
-.deliverable-thumbs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-.deliverable-thumb {
-  width: 136px; height: 90px; padding: 0; border: 1px solid var(--line-soft, #E5E9F0);
-  border-radius: 10px; overflow: hidden; cursor: zoom-in; background: #F1F5F9;
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-}
-.deliverable-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.deliverable-thumb:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(15,23,42,.14); border-color: var(--brand, #2563EB); }
-
-.lightbox {
-  position: fixed; inset: 0; z-index: 9999; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 14px; padding: 24px;
-  background: rgba(15,23,42,.86); backdrop-filter: blur(4px);
-}
-.lightbox[hidden] { display: none; }
-.lightbox-img { max-width: 92vw; max-height: 82vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.5); background: #fff; }
-.lightbox-cap { color: #E2E8F0; font-size: 14px; margin: 0; text-align: center; max-width: 92vw; }
-.lightbox-close {
-  position: absolute; top: 18px; right: 18px; width: 44px; height: 44px; border-radius: 50%;
-  border: none; cursor: pointer; color: #fff; background: rgba(255,255,255,.14);
-  display: flex; align-items: center; justify-content: center; transition: background .18s ease;
-}
-.lightbox-close:hover { background: rgba(255,255,255,.28); }
-@media (max-width: 640px) {
-  .deliverable-thumb { width: calc(50% - 5px); height: 92px; }
-}
-
 
 /* ============================================================
    ABOUT
@@ -583,15 +556,9 @@ b, strong { color: var(--ink); font-weight: 600; }
    ARTICLES
    ============================================================ */
 .section-articles { background: var(--surface); }
-.articles-list { display: flex; flex-direction: column; gap: var(--sp-4); }
+.articles-list { display: flex; flex-direction: column; gap: var(--sp-6); }
 /* 文章改为与项目一致的就地展开卡片（见 .project-card / .card-toggle） */
 .art-meta { font-size: 13px; color: var(--muted); margin-top: 6px; font-variant-numeric: tabular-nums; }
-/* 文章卡片紧凑布局：标题与阅读时长同行，关键词与展开按钮同处 footer */
-.card-name-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-3); }
-.project-card[data-kind="article"] .card-toggle { gap: var(--sp-3); padding: var(--sp-4); }
-.project-card[data-kind="article"] .card-toggle-main { gap: 0; }
-.project-card[data-kind="article"] .art-meta { margin-top: 0; white-space: nowrap; }
-.project-card[data-kind="article"] .card-toggle-footer { margin-top: 0; }
 .card-body-inner > p { font-size: 15px; color: var(--body); line-height: 1.9; margin-bottom: var(--sp-3); }
 .card-body-inner > p:last-child { margin-bottom: 0; }
 
@@ -816,14 +783,6 @@ b, strong { color: var(--ink); font-weight: 600; }
 .admin-actions .primary { background: #2563EB; border-color: #2563EB; }
 .admin-actions .primary:hover { background: #1D4ED8; }
 .admin-actions .danger { color: #FCA5A5; border-color: rgba(252,165,165,.4); }
-.admin-actions a.dash-entry {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 9px 16px; border-radius: 999px;
-  border: 1px solid #2563EB; background: #2563EB; color: #fff;
-  font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer;
-  transition: background var(--t-fast), border-color var(--t-fast);
-}
-.admin-actions a.dash-entry:hover { background: #1D4ED8; border-color: #1D4ED8; }
 
 .admin-main { max-width: 880px; margin: 0 auto; padding: 24px 20px 80px; }
 .admin-section {

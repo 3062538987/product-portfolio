@@ -3,26 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>江宇芳 · AI 产品经理 | 作品集</title>
-  <meta name="description" content="江宇芳的个人作品集：2段AI产品实习经历，专注B端电商场景的AI产品落地与数据驱动迭代。" />
-  <!-- 社交分享卡片：微信/LinkedIn 抓取器不执行 JS，必须静态写入 HTML -->
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="江宇芳的作品集" />
-  <meta property="og:title" content="江宇芳 · AI 产品经理 | 作品集" />
-  <meta property="og:description" content="江宇芳的个人作品集：2段AI产品实习经历，专注B端电商场景的AI产品落地与数据驱动迭代。" />
-  <meta property="og:url" content="https://3062538987.github.io/product-portfolio/" />
-  <meta property="og:image" content="https://3062538987.github.io/product-portfolio/assets/img/og-cover.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="江宇芳 · AI 产品经理 | 作品集" />
-  <meta name="twitter:description" content="江宇芳的个人作品集：2段AI产品实习经历，专注B端电商场景的AI产品落地与数据驱动迭代。" />
-  <meta name="twitter:image" content="https://3062538987.github.io/product-portfolio/assets/img/og-cover.png" />
-  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <title>作品集</title>
+  <meta name="description" content="" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- 非阻塞加载：字体不可达时也不阻塞首屏渲染（国内网络友好） -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260810T013829" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260810T125434" />
 </head>
 <body>
   <!-- ============ 导航栏 ============ -->
@@ -164,44 +152,18 @@
   <div class="prd-print" id="prdPrint" aria-hidden="true"></div>
 
   <!-- ============ 脚本：数据 → 渲染 → 交互 ============ -->
-  <script src="assets/js/content.js?v=20260810T013829"></script>
+  <script src="assets/js/content.js?v=20260810T125434"></script>
   <script>
-    /* 本地预览：若后台已「保存」，用 localStorage 草稿增量合并到默认内容。
-       合并策略：以 content.js 为基准，草稿只覆盖它已有的字段；
-       content.js 新增的字段/项目（如第 N 个项目、hideDeliverables 开关）仍会生效，
-       避免旧草稿把新内容整体覆盖掉。 */
+    /* 本地预览：若后台已「保存」，用 localStorage 草稿覆盖默认内容 */
     (function () {
-      function mergeContent(base, over) {
-        if (over == null) return base;
-        if (base == null) return over;
-        if (Array.isArray(base) || Array.isArray(over)) {
-          var bArr = Array.isArray(base) ? base : [];
-          var oArr = Array.isArray(over) ? over : [];
-          var out = bArr.map(function (item, i) {
-            return i < oArr.length ? mergeContent(item, oArr[i]) : item;
-          });
-          if (oArr.length > bArr.length) out = out.concat(oArr.slice(bArr.length));
-          return out;
-        }
-        if (typeof base === 'object' && typeof over === 'object') {
-          var res = {};
-          for (var k in base) res[k] = mergeContent(base[k], over[k]);
-          for (var k2 in over) if (!(k2 in res)) res[k2] = over[k2];
-          return res;
-        }
-        return over;
-      }
       try {
         var d = localStorage.getItem('portfolio-content-v1');
-        if (d) {
-          var o = JSON.parse(d);
-          if (o && o.site) window.SITE_CONTENT = mergeContent(window.SITE_CONTENT, o);
-        }
+        if (d) { var o = JSON.parse(d); if (o && o.site) window.SITE_CONTENT = o; }
       } catch (e) {}
     })();
   </script>
-  <script src="assets/js/analytics.js?v=20260810T013829"></script>
-  <script src="assets/js/render.js?v=20260810T013829" defer></script>
-  <script src="assets/js/main.js?v=20260810T013829" defer></script>
+  <script src="assets/js/analytics.js?v=20260810T125434"></script>
+  <script src="assets/js/render.js?v=20260810T125434" defer></script>
+  <script src="assets/js/main.js?v=20260810T125434" defer></script>
 </body>
 </html>

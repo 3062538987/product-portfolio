@@ -17,9 +17,6 @@
 
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // 会话起始时间（用于上报真实会话时长）
-  var pageLoad = Date.now();
-
   /* ---------- 0. 阅读进度条 ---------- */
   function updateProgress() {
     if (!progressBar) return;
@@ -27,21 +24,6 @@
     var max = doc.scrollHeight - doc.clientHeight;
     var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
     progressBar.firstElementChild.style.transform = 'scaleX(' + p + ')';
-  }
-
-  /* ---------- 0.1 埋点：滚动深度里程碑（25/50/75/100%，session 去重） ---------- */
-  var DEPTH_MARKS = [25, 50, 75, 100];
-  function updateDepth() {
-    var doc = document.documentElement;
-    var max = doc.scrollHeight - doc.clientHeight;
-    if (max <= 0) return;
-    var p = Math.min(100, Math.round((window.scrollY / max) * 100));
-    DEPTH_MARKS.forEach(function (m) {
-      if (p < m) return;
-      var KEY = 'gc_depth:' + m;
-      try { if (sessionStorage.getItem(KEY)) return; sessionStorage.setItem(KEY, '1'); } catch (e) { return; }
-      if (window.track) window.track('scroll_depth', m);
-    });
   }
 
   /* ---------- 1. 平滑滚动 ---------- */
@@ -66,16 +48,7 @@
   /* ---------- 0.5 埋点：联系方式 / 下载简历 等带 data-track 的点击 ---------- */
   document.addEventListener('click', function (e) {
     var t = e.target.closest('[data-track]');
-    if (!t || !window.track) return;
-    var name = t.getAttribute('data-track');
-    window.track(name);
-    // 下载简历时额外记录「下载前看过的项目数」——衡量内容说服力（核心转化指标）
-    if (name === 'download_resume') {
-      var n = 0;
-      try { n = (JSON.parse(sessionStorage.getItem('gc_proj_viewed') || '[]')).length; } catch (e2) {}
-      try { sessionStorage.setItem('gc_downloaded', '1'); } catch (e2) {}
-      window.track('download_after', n);
-    }
+    if (t && window.track) window.track(t.getAttribute('data-track'));
   });
 
   /* ---------- 0.6 导出 PRD（按项目生成 PDF） ---------- */
@@ -92,7 +65,6 @@
   }
   window.addEventListener('scroll', updateNavShadow, { passive: true });
   window.addEventListener('scroll', updateProgress, { passive: true });
-  window.addEventListener('scroll', updateDepth, { passive: true });
   updateNavShadow();
   updateProgress();
 
@@ -115,26 +87,6 @@
       });
     }, { root: null, rootMargin: '-80px 0px 0px 0px', threshold: 0.3 });
     sections.forEach(function (s) { navObserver.observe(s); });
-  }
-
-  /* ---------- 3.5 埋点：区块曝光漏斗（到达 projects/about/contact 等核心区） ---------- */
-  function trackSectionView(id) {
-    if (!id) return;
-    var KEY = 'gc_section:' + id;
-    try { if (sessionStorage.getItem(KEY)) return; sessionStorage.setItem(KEY, '1'); } catch (e) { return; }
-    if (window.track) window.track('section_view', id);
-  }
-  var viewSections = Array.from(document.querySelectorAll('#projects, #about, #articles, #contact'));
-  if ('IntersectionObserver' in window && viewSections.length) {
-    var secViewObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          trackSectionView(entry.target.id);
-          secViewObserver.unobserve(entry.target);
-        }
-      });
-    }, { root: null, rootMargin: '0px 0px -50% 0px', threshold: 0 });
-    viewSections.forEach(function (s) { secViewObserver.observe(s); });
   }
 
   /* ---------- 4. 滚动入场 reveal ---------- */
@@ -282,30 +234,23 @@
       var expanded = toggle.getAttribute('aria-expanded') === 'true';
       var willOpen = !expanded;
       setCardState(card, toggle, body, willOpen);
-      // 埋点：仅项目卡埋点。审计后已移除 article_*（文章区弱）与 project_open（重复计数，改用去重 project_view）
+      // 埋点：项目 / 文章 展开
       if (willOpen && window.track) {
         var kind = card.getAttribute('data-kind');
-        if (kind === 'article') return; // 文章不单独埋点
         var nm = (card.querySelector('.card-name') || {}).textContent || '';
-        if (!nm) return;
-        // 项目：去重曝光（对比「哪个项目更受 HR 青睐」，比会重复计数的 project_open 准）
-        try {
-          var KEY = 'gc_proj_viewed';
-          var viewed = JSON.parse(sessionStorage.getItem(KEY) || '[]');
-          if (viewed.indexOf(nm) === -1) {
-            viewed.push(nm);
-            sessionStorage.setItem(KEY, JSON.stringify(viewed));
-            window.track('project_view', nm);
-          }
-        } catch (e) {}
-        // 认真阅读信号：展开满 8 秒且仍处于展开状态才记 project_read（强兴趣 / 真读完）
-        if (!card.getAttribute('data-read-tracked')) {
-          setTimeout(function () {
-            if (card.classList.contains('is-open')) {
-              card.setAttribute('data-read-tracked', '1');
-              window.track('project_read', nm);
+        window.track(kind === 'article' ? 'article_open' : 'project_open', nm);
+        // 去重「有效浏览」：同一次访问内展开同一项目只记 1 次 project_view，
+        // 用于对比「哪个项目更受 HR 青睐」（区分于会重复计数的 project_open 深度互动）
+        if (kind !== 'article' && nm && window.sessionStorage) {
+          try {
+            var KEY = 'gc_proj_viewed';
+            var viewed = JSON.parse(sessionStorage.getItem(KEY) || '[]');
+            if (viewed.indexOf(nm) === -1) {
+              viewed.push(nm);
+              sessionStorage.setItem(KEY, JSON.stringify(viewed));
+              window.track('project_view', nm);
             }
-          }, 8000);
+          } catch (e) {}
         }
       }
     });
@@ -325,88 +270,13 @@
       body.removeAttribute('hidden');
       void body.offsetHeight;
       body.style.gridTemplateRows = '1fr';
-      // 记录展开起始时间（仅项目卡，用于真实停留时长）
-      if (card.getAttribute('data-kind') !== 'article') card._openAt = Date.now();
     } else {
       body.style.gridTemplateRows = '0fr';
       setTimeout(function () {
         if (body.style.gridTemplateRows === '0fr') body.setAttribute('hidden', '');
       }, 360);
-      // 收起时上报真实停留时长（仅项目卡；<3s 视为误触不记）
-      if (card.getAttribute('data-kind') !== 'article' && card._openAt && window.track) {
-        var sec = Math.round((Date.now() - card._openAt) / 1000);
-        card._openAt = 0;
-        var nm = (card.querySelector('.card-name') || {}).textContent || '';
-        if (sec >= 3 && nm) window.track('project_dwell:' + nm, Math.round(sec / 5) * 5);
-      }
     }
   }
-
-  /* ---------- 10. 离开诊断：早退 / 未到联系区就走（定位流失点） ---------- */
-  function trackExit() {
-    try {
-      if (sessionStorage.getItem('gc_exit_done')) return;
-      var reachedContact = !!sessionStorage.getItem('gc_section:contact');
-      var viewedAny = false;
-      try { viewedAny = (JSON.parse(sessionStorage.getItem('gc_proj_viewed') || '[]').length > 0); } catch (e) {}
-      var downloaded = !!sessionStorage.getItem('gc_downloaded');
-      var shallow = !sessionStorage.getItem('gc_depth:25');
-      if (shallow && !viewedAny && !downloaded) {
-        if (window.track) window.track('exit_bounce');       // 首屏没留住
-      } else if (!reachedContact) {
-        if (window.track) window.track('exit_no_contact');    // 看了内容但没滚到联系方式
-      }
-      // 离开时补报：仍未关闭的项目卡停留时长（避免直接关标签页漏记）
-      cards.forEach(function (card) {
-        if (card.classList.contains('is-open') && card._openAt && card.getAttribute('data-kind') !== 'article' && window.track) {
-          var s = Math.round((Date.now() - card._openAt) / 1000);
-          card._openAt = 0;
-          var n = (card.querySelector('.card-name') || {}).textContent || '';
-          if (s >= 3 && n) window.track('project_dwell:' + n, Math.round(s / 5) * 5);
-        }
-      });
-      // 会话总时长（按 10s 分桶，降低 Top paths 行数）
-      var dur = Math.round((Date.now() - pageLoad) / 1000);
-      if (window.track) window.track('session_duration', Math.round(dur / 10) * 10);
-      sessionStorage.setItem('gc_exit_done', '1');
-    } catch (e) {}
-  }
-  document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState === 'hidden') trackExit();
-  });
-  window.addEventListener('pagehide', trackExit);
 
   initFeedback();
-  initLightbox();
-
-  /* ---------- 8. 交付物图片灯箱（点击缩略图放大） ---------- */
-  function initLightbox() {
-    var lb = document.createElement('div');
-    lb.className = 'lightbox';
-    lb.setAttribute('hidden', '');
-    lb.innerHTML = '<button type="button" class="lightbox-close" aria-label="关闭">' +
-      '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
-      '<img class="lightbox-img" alt=""><p class="lightbox-cap"></p>';
-    document.body.appendChild(lb);
-    var img = lb.querySelector('.lightbox-img');
-    var cap = lb.querySelector('.lightbox-cap');
-    function open(src, caption) {
-      img.src = src; img.alt = caption || '';
-      cap.textContent = caption || '';
-      lb.removeAttribute('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-    function close() {
-      lb.setAttribute('hidden', ''); img.src = '';
-      document.body.style.overflow = '';
-    }
-    document.addEventListener('click', function (e) {
-      var t = e.target.closest('.deliverable-thumb');
-      if (t) { e.preventDefault(); open(t.getAttribute('data-lightbox'), t.getAttribute('data-caption')); return; }
-      if (!lb.hidden && (e.target === lb || e.target.closest('.lightbox-close'))) close();
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !lb.hidden) close();
-    });
-  }
 })();

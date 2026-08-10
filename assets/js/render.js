@@ -69,8 +69,8 @@
     }
     if (h.cta) {
       html += '<div class="hero-cta" data-reveal>' +
-        '<a href="#projects" class="btn btn-primary" data-scroll data-track="hero_cta:view_projects">查看作品 <span aria-hidden="true">↓</span></a>' +
-        '<a href="#about" class="btn btn-ghost" data-scroll data-track="hero_cta:about">了解更多</a></div>';
+        '<a href="#projects" class="btn btn-primary" data-scroll>查看作品 <span aria-hidden="true">↓</span></a>' +
+        '<a href="#about" class="btn btn-ghost" data-scroll>了解更多</a></div>';
     }
     c.innerHTML = html;
 
@@ -118,27 +118,14 @@
   }
 
   function renderDeliverables(dels) {
-    if (D.site && D.site.hideDeliverables) return '';
     if (!dels || !dels.length) return '';
     var items = '';
     dels.forEach(function (d) {
       var links = '';
       (d.links || []).forEach(function (l) {
-        if (l.url) links += '<a href="' + esc(l.url) + '" target="_blank" rel="noopener" data-track="deliverable_link">' + esc(l.label || '查看') + '</a>';
+        if (l.url) links += '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label || '查看') + '</a>';
       });
-      var imgs = d.img ? (Array.isArray(d.img) ? d.img : [d.img]) : [];
-      var thumbs = '';
-      if (imgs.length) {
-        thumbs = '<div class="deliverable-thumbs">';
-        imgs.forEach(function (src) {
-          var alt = esc(d.name || '交付物截图');
-          thumbs += '<button type="button" class="deliverable-thumb" data-lightbox="' + esc(src) + '" data-caption="' + alt + '" aria-label="放大查看：' + alt + '">' +
-            '<img src="' + esc(src) + '" alt="' + alt + '" loading="lazy"></button>';
-        });
-        thumbs += '</div>';
-      }
       items += '<li><span class="doc-name">' + DOC_ICON + esc(d.name || '') + '</span>' +
-        thumbs +
         (links ? '<span class="doc-actions">' + links + '</span>' : '') + '</li>';
     });
     if (!items) return '';
@@ -231,18 +218,12 @@
     list.forEach(function (a, idx) {
       var id = a.id || ('art' + idx);
       var paras = (a.paragraphs || []).map(function (p) { return '<p>' + md(p) + '</p>'; }).join('');
-      var meta = (a.date || a.reading) ? ('<span class="art-meta">' +
-        (a.date ? '<time>' + esc(a.date) + '</time>' : '') +
-        (a.date && a.reading ? ' · ' : '') +
-        (a.reading ? esc(a.reading) : '') + '</span>') : '';
-      var kw = (a.keywords && a.keywords.length) ? ('<span class="card-tags" aria-label="关键词">' +
-        a.keywords.map(function (k) { return '<span class="tag">' + esc(k) + '</span>'; }).join('') + '</span>') : '<span></span>';
       html += '<article class="project-card" data-kind="article" data-reveal>' +
         '<button type="button" class="card-toggle" aria-expanded="false" aria-controls="' + id + '-body" id="' + id + '-toggle">' +
-        '<span class="card-toggle-main"><span class="card-name-line">' +
-        '<span class="card-name">' + esc(a.title || '') + '</span>' + meta + '</span></span>' +
-        '<span class="card-toggle-footer">' + kw + '<span class="card-chevron" aria-hidden="true">展开</span></span>' +
-        '</button>' +
+        '<span class="card-toggle-main"><span class="card-name">' + esc(a.title || '') + '</span>' +
+        (a.date || a.reading ? '<span class="art-meta"><time>' + esc(a.date || '') + '</time>' +
+        (a.reading ? ' · ' + esc(a.reading) : '') + '</span>' : '') + '</span>' +
+        '<span class="card-chevron" aria-hidden="true">展开</span></button>' +
         '<div class="card-body" id="' + id + '-body" role="region" aria-labelledby="' + id + '-toggle" hidden>' +
         '<div class="card-body-inner">' + paras + '</div></div></article>';
     });
@@ -269,7 +250,7 @@
     (c.socials || []).forEach(function (s) {
       if (!s.url) return; // 没填链接的社交不渲染
       socials += '<a class="social-btn" href="' + esc(s.url) + '" target="_blank" rel="noopener" ' +
-        'aria-label="' + esc(s.label || s.type) + '">' +
+        'data-track="social:' + esc(s.label || s.type) + '" aria-label="' + esc(s.label || s.type) + '">' +
         icon(s.type) + esc(s.label || s.type) + '</a>';
     });
     ci.innerHTML = (list ? '<ul class="contact-list" data-reveal>' + list + '</ul>' : '') +
@@ -356,7 +337,7 @@
       }
       if (m.note) html += '<p class="prd-note">' + md(m.note) + '</p>';
     });
-    if (p.deliverables && p.deliverables.length && !(D.site && D.site.hideDeliverables)) {
+    if (p.deliverables && p.deliverables.length) {
       html += '<h2>相关交付物</h2><ul>';
       p.deliverables.forEach(function (d) { html += '<li>' + esc(d.name || '') + '</li>'; });
       html += '</ul>';
