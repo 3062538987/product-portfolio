@@ -559,6 +559,8 @@ b, strong { color: var(--ink); font-weight: 600; }
 .articles-list { display: flex; flex-direction: column; gap: var(--sp-6); }
 /* 文章改为与项目一致的就地展开卡片（见 .project-card / .card-toggle） */
 .art-meta { font-size: 13px; color: var(--muted); margin-top: 6px; font-variant-numeric: tabular-nums; }
+/* 文章正文收窄为舒适阅读列，避免在宽屏下铺成一大片、显得「占满面积」 */
+.article-body { max-width: 680px; margin: 0 auto; }
 .card-body-inner > p { font-size: 15px; color: var(--body); line-height: 1.9; margin-bottom: var(--sp-3); }
 .card-body-inner > p:last-child { margin-bottom: 0; }
 
