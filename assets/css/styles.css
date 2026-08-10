@@ -104,7 +104,7 @@ b, strong { color: var(--ink); font-weight: 600; }
 }
 
 /* ---------- 通用：区块标题 ---------- */
-.section { padding: clamp(44px, 6.5vw, 84px) 0; }
+.section { padding: clamp(30px, 4.5vw, 56px) 0; }
 .section-head { margin-bottom: var(--sp-8); max-width: 720px; }
 .section-head--center { margin-left: auto; margin-right: auto; text-align: center; }
 .section-title {
@@ -561,8 +561,11 @@ b, strong { color: var(--ink); font-weight: 600; }
 .art-meta { font-size: 13px; color: var(--muted); margin-top: 6px; font-variant-numeric: tabular-nums; }
 /* 文章正文收窄为舒适阅读列，避免在宽屏下铺成一大片、显得「占满面积」 */
 .article-body { max-width: 680px; margin: 0 auto; }
-.card-body-inner > p { font-size: 15px; color: var(--body); line-height: 1.9; margin-bottom: var(--sp-3); }
-.card-body-inner > p:last-child { margin-bottom: 0; }
+/* 文章正文更紧凑：收紧行距与段距，单篇更短，HR 不会觉得很长 */
+.article-body > p { font-size: 15px; color: var(--body); line-height: 1.72; margin-bottom: var(--sp-2); }
+.article-body > p:last-child { margin-bottom: 0; }
+/* 文章卡片底部：阅读时长与「展开」都靠右 */
+.art-footer { justify-content: flex-end; }
 
 
 /* ============================================================

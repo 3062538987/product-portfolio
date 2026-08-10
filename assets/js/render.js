@@ -225,7 +225,7 @@
         (a.reading ? (a.date ? ' · ' : '') + '阅读 ' + esc(a.reading) : '') + '</span>' : '');
       // 文章默认收起，靠右侧「展开」引导点击；标签与阅读时长放在头部（与项目卡片一致）
       var open = false;
-      var footer = '<span class="card-toggle-footer">' + meta +
+      var footer = '<span class="card-toggle-footer art-footer">' + meta +
         '<span class="card-chevron" aria-hidden="true">' + (open ? '收起' : '展开') + '</span></span>';
       html += '<article class="project-card" data-kind="article" data-reveal>' +
         '<button type="button" class="card-toggle" aria-expanded="false" aria-controls="' + id + '-body" id="' + id + '-toggle">' +
